@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -29,7 +30,40 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'address',
+        'dob',
+        'role',
+        'phone',
+        'role'
+
     ];
+
+    public static array $roles = ['Customer', 'Seller'];
+
+    // A seller owns many products
+    public function products(): HasMany
+    {
+        return $this->hasMany(Product::class, 'seller_id');
+    }
+
+    // A customer has many orders
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
+    public function isSeller(): bool
+    {
+        return $this->role === 'seller';
+    }
+    public function isCustomer(): bool
+    {
+        return $this->role === 'customer';
+    }
 
     /**
      * The attributes that should be hidden for serialization.

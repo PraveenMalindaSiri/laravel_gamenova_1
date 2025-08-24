@@ -21,6 +21,10 @@ return new class extends Migration
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();
             $table->timestamps();
+            $table->enum('role', ['customer', 'seller', 'admin'])->default('customer');
+            $table->string('phone')->nullable();
+            $table->string('address')->nullable();
+            $table->dateTime('dob')->nullable();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
