@@ -29,6 +29,13 @@ class Product extends Model
         'company',
     ];
 
+    protected $casts = [
+        'price'         => 'decimal:2',
+        'released_date' => 'date',
+        'size'          => 'decimal:2',
+        'age_rating'    => 'integer',
+    ];
+
     public static array $platforms = ['PC', 'XBOX', 'PS4', 'PS5'];
     public static array $genres = ['Shooter', 'RPG', 'Racing'];
     public static array $type = ['digital', 'physical'];

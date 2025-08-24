@@ -14,6 +14,11 @@ class Order extends Model
 
     protected $fillable = ['user_id', 'totalprice', 'orderdate'];
 
+    protected $casts = [
+        'totalprice' => 'decimal:2',
+        'orderdate'  => 'datetime',
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

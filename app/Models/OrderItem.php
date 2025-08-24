@@ -20,6 +20,12 @@ class OrderItem extends Model
         'is_digital',
     ];
 
+    protected $casts = [
+        'quantity'   => 'integer',
+        'price'      => 'decimal:2',
+        'is_digital' => 'boolean',
+    ];
+
     public function order(): BelongsTo
     {
         return $this->belongsTo(Order::class);
