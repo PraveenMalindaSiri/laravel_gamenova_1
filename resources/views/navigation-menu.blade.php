@@ -13,6 +13,10 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
 
+                    <x-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')">
+                        {{ __('Home') }}
+                    </x-nav-link>
+
                     {{-- show all games --}}
                     @if (Auth::user()->isAdmin() || Auth::user()->isCustomer())
                         <x-nav-link href="{{ route('orders.index') }}" :active="request()->routeIs('orders.index')">

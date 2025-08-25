@@ -10,7 +10,7 @@ class ProductPageController extends Controller
 {
     public function index()
     {
-        return view('website.home');
+        return view('website.product');
     }
 
     public function show(Product $product)
