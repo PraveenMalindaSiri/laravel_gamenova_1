@@ -43,7 +43,7 @@
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                     {{ $p->title }}
                                     @if ($p->deleted_at)
-                                        <span class="text-sm text-red-800">Deleted</span>
+                                        <span class="text-xs text-red-800">- Deleted</span>
                                     @endif
                                 </td>
 
@@ -65,16 +65,29 @@
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                    <a href="{{ route('myproducts.edit', $p) }}"
-                                        class="text-indigo-600 hover:text-indigo-900 mb-2 mr-2">Edit</a>
+                                    @if (!$p->deleted_at)
+                                        <a href="{{ route('myproducts.edit', $p) }}"
+                                            class="text-indigo-600 hover:text-indigo-900 mb-2 mr-2">Edit</a>
+                                    @endif
 
-                                    <form class="inline-block" action="{{ route('myproducts.destroy', $p) }}"
-                                        method="POST" onsubmit="return confirm('Are you sure?');">
-                                        @csrf
-                                        @method('DELETE')
-                                        <input type="submit" class="text-red-600 hover:text-red-900 mb-2"
-                                            value="Delete">
-                                    </form>
+                                    @if (!$p->deleted_at)
+                                        <form class="inline-block" action="{{ route('myproducts.destroy', $p) }}"
+                                            method="POST" onsubmit="return confirm('Are you sure?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <input type="submit" class="text-red-600 hover:text-red-900 mb-2"
+                                                value="Delete">
+                                        </form>
+                                    @else
+                                        <form class="inline-block" action="{{ route('myproducts.restore', $p) }}"
+                                            method="POST" onsubmit="return confirm('Are you sure?');">
+                                            @csrf
+                                            @method('PATCH')
+                                            <input type="submit" class="text-green-600 hover:text-green-900 mb-2"
+                                                value="ACTIVATE">
+                                        </form>
+                                    @endif
+
                                 </td>
                             </tr>
                         @empty

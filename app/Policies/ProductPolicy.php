@@ -41,7 +41,7 @@ class ProductPolicy
 
     public function restore(User $user, Product $product): bool
     {
-        return $this->update($user, $product);
+        return $user->isAdmin() || ($user->isSeller() && $product->seller_id === $user->id);
     }
 
     public function forceDelete(User $user, Product $product): bool

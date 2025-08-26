@@ -11,7 +11,6 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
-use Str;
 
 class ProductController extends Controller
 {
@@ -63,7 +62,7 @@ class ProductController extends Controller
 
         Product::create($data);
 
-        return back()->with('success', 'Product created');
+        return redirect()->route('myproducts.index')->with('success', 'Product created');
     }
 
 
@@ -108,7 +107,7 @@ class ProductController extends Controller
             Storage::disk($disk)->delete($oldPath);
         }
 
-        return back()->with('success', 'Product updated');
+        return redirect()->route('myproducts.index')->with('success', 'Product updated');
     }
 
     /**
@@ -121,6 +120,17 @@ class ProductController extends Controller
         $product->delete();
 
         return back()->with('success', 'Product deleted');
+    }
+
+    public function restore(string $product)
+    {
+        $product = Product::withTrashed()->findOrFail($product);
+        Gate::authorize('restore', $product);
+
+        if ($product->trashed()) {
+            $product->restore();
+        }
+        return back()->with('success', 'Product restored');
     }
 
     protected function buildStoredPath(UploadedFile $file, string $dir = 'products', string $disk = 's3'): string

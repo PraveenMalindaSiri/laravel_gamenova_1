@@ -76,10 +76,10 @@
 
                         {{-- Release Date --}}
                         <div>
-                            <x-input-field name="released_date" type="date" label="Release Date" :value="old('released_date', $product->released_date)" />
+                            <x-input-field name="released_date" type="date" label="Release Date" :value="old('released_date', optional($product->released_date)->format('Y-m-d'))" />
                         </div>
 
-                        {{-- Type --}}
+                        {{-- Type
                         <div class="mt-4">
                             <label class="mb-1 block text-sm font-medium text-gray-700">Type</label>
                             <div class="ml-4">
@@ -88,7 +88,7 @@
                                     \App\Models\Product::$type,
                                 )" :value="old('type', $product->type)" />
                             </div>
-                        </div>
+                        </div> --}}
 
                         {{-- Genre --}}
                         <div class="mt-4">

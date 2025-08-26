@@ -24,6 +24,8 @@ Route::middleware([
     // Products (Admin + Seller)
     Route::middleware('role:admin,seller')->group(function () {
         Route::resource('myproducts', ProductController::class)->parameters(['myproducts' => 'product']);
+        Route::patch('myproducts/{product}/restore', [ProductController::class, 'restore'])
+            ->name('myproducts.restore');
     });
 
     // Orders (Admin + Customer)

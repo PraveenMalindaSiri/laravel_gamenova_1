@@ -12,7 +12,7 @@ class UpdateProductRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        $product = $this->route('myproduct');
+        $product = $this->route('product') ?? $this->route('myproduct');
         return $product ? Gate::allows('update', $product) : false;
     }
 
