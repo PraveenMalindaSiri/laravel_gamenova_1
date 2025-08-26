@@ -26,14 +26,14 @@
 
                     {{-- show all games --}}
                     @if (Auth::user()->isAdmin() || Auth::user()->isSeller())
-                        <x-nav-link href="{{ route('myproducts.index') }}" :active="request()->routeIs('products.index')">
+                        <x-nav-link href="{{ route('myproducts.index') }}" :active="request()->routeIs('myproducts.index')">
                             {{ __('Products') }}
                         </x-nav-link>
                     @endif
 
                     {{-- show game create --}}
                     @if (Auth::user()->isSeller())
-                        <x-nav-link href="{{ route('myproducts.create') }}" :active="request()->routeIs('products.create')">
+                        <x-nav-link href="{{ route('myproducts.create') }}" :active="request()->routeIs('myproducts.create')">
                             {{ __('Create') }}
                         </x-nav-link>
                     @endif
