@@ -56,7 +56,7 @@ class FortifyServiceProvider extends ServiceProvider
                 }
 
                 if ($user->isSeller()) {
-                    return redirect()->intended(route('products.index'));
+                    return redirect()->intended(route('myproducts.index'));
                 }
 
                 // default (customer)

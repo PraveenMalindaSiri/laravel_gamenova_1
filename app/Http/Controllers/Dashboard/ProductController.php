@@ -15,7 +15,7 @@ class ProductController extends Controller
     {
         return view(
             'dashboard.product.index',
-            ['panel' => Auth::user()->role]
+            ['panel' => Auth::user()->role, 'mode' => 'create']
         );
     }
 
@@ -30,10 +30,7 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        //
-    }
+    public function store(Request $request) {}
 
     /**
      * Display the specified resource.

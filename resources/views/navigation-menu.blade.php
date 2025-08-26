@@ -5,7 +5,7 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ route('home') }}">
                         <x-application-mark class="block h-9 w-auto" />
                     </a>
                 </div>
@@ -26,14 +26,14 @@
 
                     {{-- show all games --}}
                     @if (Auth::user()->isAdmin() || Auth::user()->isSeller())
-                        <x-nav-link href="{{ route('products.index') }}" :active="request()->routeIs('products.index')">
+                        <x-nav-link href="{{ route('myproducts.index') }}" :active="request()->routeIs('products.index')">
                             {{ __('Products') }}
                         </x-nav-link>
                     @endif
 
                     {{-- show game create --}}
                     @if (Auth::user()->isSeller())
-                        <x-nav-link href="{{ route('products.create') }}" :active="request()->routeIs('products.create')">
+                        <x-nav-link href="{{ route('myproducts.create') }}" :active="request()->routeIs('products.create')">
                             {{ __('Create') }}
                         </x-nav-link>
                     @endif
