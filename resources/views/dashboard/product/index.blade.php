@@ -20,31 +20,59 @@
                                 class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Price
                             </th>
+                            <th scope="col"
+                                class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Type
+                            </th>
+                            <th scope="col"
+                                class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Platform
+                            </th>
+                            <th scope="col"
+                                class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Genre
+                            </th>
                             <th scope="col" width="200" class="px-6 py-3 bg-gray-50">
                                 Actions
                             </th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                        {{-- @forelse ($products as $p)
+                        @forelse ($products as $p)
                             <tr>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                     {{ $p->title }}
+                                    @if ($p->deleted_at)
+                                        <span class="text-sm text-red-800">Deleted</span>
+                                    @endif
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                     {{ $p->price }}
                                 </td>
 
+
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    {{ ucfirst($p->type) }}
+                                </td>
+
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    {{ ucfirst($p->platform) }}
+                                </td>
+
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    {{ $p->genre }}
+                                </td>
+
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                     <a href="{{ route('myproducts.edit', $p) }}"
                                         class="text-indigo-600 hover:text-indigo-900 mb-2 mr-2">Edit</a>
 
-                                    <form class="inline-block" action="{{ route('tasks.destroy', $p) }}" method="POST"
-                                        onsubmit="return confirm('Are you sure?');">
+                                    <form class="inline-block" action="{{ route('myproducts.destroy', $p) }}"
+                                        method="POST" onsubmit="return confirm('Are you sure?');">
                                         @csrf
                                         @method('DELETE')
-                                        <input type="submit" class="text-red-600 hover:text-red-900 mb-2 mr-2"
+                                        <input type="submit" class="text-red-600 hover:text-red-900 mb-2"
                                             value="Delete">
                                     </form>
                                 </td>
@@ -55,7 +83,7 @@
                                     No Products in the system
                                 </td>
                             </tr>
-                        @endforelse --}}
+                        @endforelse
                     </tbody>
                 </table>
 

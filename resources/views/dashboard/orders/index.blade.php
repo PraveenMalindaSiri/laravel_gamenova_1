@@ -30,7 +30,7 @@
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                        @forelse ($orders as $p)
+                        {{-- @forelse ($orders as $p)
                             <tr>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                     {{ $p->title }}
@@ -55,7 +55,7 @@
                                     No Orders in the system
                                 </td>
                             </tr>
-                        @endforelse
+                        @endforelse --}}
                     </tbody>
                 </table>
 

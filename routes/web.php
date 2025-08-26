@@ -23,7 +23,7 @@ Route::middleware([
 
     // Products (Admin + Seller)
     Route::middleware('role:admin,seller')->group(function () {
-        Route::resource('myproducts', ProductController::class);
+        Route::resource('myproducts', ProductController::class)->parameters(['myproducts' => 'product']);
     });
 
     // Orders (Admin + Customer)

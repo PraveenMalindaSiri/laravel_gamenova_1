@@ -40,7 +40,7 @@
                                     <a href="{{ route('myproducts.edit', $p) }}"
                                         class="text-indigo-600 hover:text-indigo-900 mb-2 mr-2">Edit</a>
 
-                                    <form class="inline-block" action="{{ route('tasks.destroy', $p) }}" method="POST"
+                                    <form class="inline-block" action="{{ route('users.destroy', $p) }}" method="POST"
                                         onsubmit="return confirm('Are you sure?');">
                                         @csrf
                                         @method('DELETE')

@@ -5,20 +5,21 @@ namespace App\Http\Requests;
 use App\Models\Product;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
 
 class UpdateProductRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        // Optional: enforce policy using $this->route('product')
-        return true;
+        $product = $this->route('myproduct');
+        return $product ? Gate::allows('update', $product) : false;
     }
 
     public function rules(): array
     {
         /** @var \App\Models\Product $product */
-        $product = $this->route('product'); // if your route is: myproducts.update/{product}
+        $product = $this->route('product');
 
         return [
             'product_photo' => [

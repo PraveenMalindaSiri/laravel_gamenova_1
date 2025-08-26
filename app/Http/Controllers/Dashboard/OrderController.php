@@ -13,9 +13,10 @@ class OrderController extends Controller
      */
     public function index()
     {
+        $orders = null;
         return view(
             'dashboard.orders.index',
-            ['panel' => Auth::user()->role]
+            ['panel' => Auth::user()->role, 'orders' => $orders]
         );
     }
 

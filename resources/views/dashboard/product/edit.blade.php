@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6 space-y-6">
 
-                <form action="{{ route('myproducts.update', $product->id) }}" method="POST" enctype="multipart/form-data"
+                <form action="{{ route('myproducts.update', $product) }}" method="POST" enctype="multipart/form-data"
                     class="space-y-4">
                     @csrf
                     @method('PUT')
