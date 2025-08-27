@@ -80,7 +80,8 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         Gate::authorize('update', $product);
-        return view('dashboard.product.edit', ['product' => $product]);
+        if (!$product->trashed())
+            return view('dashboard.product.edit', ['product' => $product]);
     }
 
     /**
@@ -89,6 +90,9 @@ class ProductController extends Controller
     public function update(UpdateProductRequest $request, Product $product)
     {
         Gate::authorize('update', $product);
+        if ($product->trashed()) {
+            return redirect()->route('myproducts.index')->with('error', "Can't update a deleted item!!!");
+        }
 
         $data = $request->validated();
         $disk = 's3';

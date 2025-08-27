@@ -3,7 +3,7 @@
 
         {{-- TODO:: Change logo --}}
         <x-slot name="logo">
-            <x-authentication-card-logo />
+            <x-logo-auth class="w-36" />
         </x-slot>
 
         <x-validation-errors class="mb-4" />
