@@ -15,6 +15,7 @@ Route::resource('product', ProductPageController::class)->only(['index', 'show']
 
 Route::middleware([
     'auth:sanctum',
+    // 'verified',
     config('jetstream.auth_session'),
 ])->group(function () {
 
