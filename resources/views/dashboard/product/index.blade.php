@@ -38,40 +38,41 @@
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                        @forelse ($products as $p)
+                        @forelse ($products as $product)
                             <tr>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                    {{ $p->title }}
-                                    @if ($p->deleted_at)
+                                    {{ $product->title }}
+                                    @if ($product->deleted_at)
                                         <span class="text-xs text-red-800">- Deleted</span>
                                     @endif
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                    {{ $p->price }}
+                                    {{ $product->price }}
                                 </td>
 
 
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                    {{ ucfirst($p->type) }}
+                                    {{ ucfirst($product->type) }}
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                    {{ ucfirst($p->platform) }}
+                                    {{ ucfirst($product->platform) }}
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                    {{ $p->genre }}
+                                    {{ $product->genre }}
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                    @if (!$p->deleted_at)
-                                        <a href="{{ route('myproducts.edit', $p) }}"
-                                            class="text-indigo-600 hover:text-indigo-900 mb-2 mr-2">Edit</a>
-                                    @endif
+                                    <a href="{{ route('product.show', $product) }}"
+                                        class="text-indigo-600 hover:text-indigo-900 mb-2 mr-2">View</a>
 
-                                    @if (!$p->deleted_at)
-                                        <form class="inline-block" action="{{ route('myproducts.destroy', $p) }}"
+                                    @if (!$product->deleted_at)
+                                        <a href="{{ route('myproducts.edit', $product) }}"
+                                            class="text-indigo-600 hover:text-indigo-900 mb-2 mr-2">Edit</a>
+
+                                        <form class="inline-block" action="{{ route('myproducts.destroy', $product) }}"
                                             method="POST" onsubmit="return confirm('Are you sure?');">
                                             @csrf
                                             @method('DELETE')
@@ -79,7 +80,7 @@
                                                 value="Delete">
                                         </form>
                                     @else
-                                        <form class="inline-block" action="{{ route('myproducts.restore', $p) }}"
+                                        <form class="inline-block" action="{{ route('myproducts.restore', $product) }}"
                                             method="POST" onsubmit="return confirm('Are you sure?');">
                                             @csrf
                                             @method('PATCH')

@@ -17,6 +17,6 @@ class ProductPageController extends Controller
 
     public function show(Product $product)
     {
-        //
+        return view('website.details', ['product' => $product]);
     }
 }

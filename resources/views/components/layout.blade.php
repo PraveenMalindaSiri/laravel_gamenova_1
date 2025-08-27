@@ -65,7 +65,7 @@
                                         </form>
                                     </div>
                                 @else
-                                    <div class="flex items-center space-x-5">
+                                    <div class="flex items-center">
                                         <a href="{{ route('login') }}" class="btn-nav">
                                             Log in
                                         </a>

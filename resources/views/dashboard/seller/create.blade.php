@@ -73,7 +73,7 @@
 
                         {{-- Price --}}
                         <div>
-                            <x-input-field name="price" type="number" step="0.01" label="Price" :value="old('price')"
+                            <x-input-field name="price" type="number" label="Price" :value="old('price')"
                                 required />
                         </div>
 
