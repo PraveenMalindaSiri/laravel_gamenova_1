@@ -65,15 +65,6 @@ class ProductController extends Controller
         return redirect()->route('myproducts.index')->with('success', 'Product created');
     }
 
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Product $product)
-    {
-        //
-    }
-
     /**
      * Show the form for editing the specified resource.
      */

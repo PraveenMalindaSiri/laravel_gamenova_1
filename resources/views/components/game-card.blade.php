@@ -79,7 +79,7 @@
                         @csrf
                         <input type="hidden" name="product_id" value="{{ $product->id }}">
                         <input type="hidden" name="quantity" value="{{ $wishlistAmount }}">
-                        <x-button>Move to Wishlist</x-button>
+                        <x-button>Add to Wishlist</x-button>
                     </form>
                 </div>
 

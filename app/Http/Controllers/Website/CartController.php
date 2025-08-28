@@ -16,9 +16,11 @@ class CartController extends Controller
             ->where('user_id', Auth::id())
             ->get();
 
-        // dd($carts);
+        $totalPrice = $carts->sum(fn($c) => (float)$c->product->price * (int)$c->quantity);
+        $games = $carts->count();
+        $items = (int) $carts->sum('quantity');
 
-        return view('website.customer.cart', ['carts' => $carts]);
+        return view('website.customer.cart', ['carts' => $carts, 'totalPrice' => $totalPrice, 'games' => $games, 'items' => $items]);
     }
 
     public function store(Request $request)
@@ -52,7 +54,7 @@ class CartController extends Controller
             ]
         );
 
-        return redirect()->back()->with('success', "Added the {$product->title} x {$qty} to the Cart.");
+        return redirect()->back()->with('success', "Added '{$product->title}' x {$qty} to the Cart.");
     }
 
     public function destroy(string $id)

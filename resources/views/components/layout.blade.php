@@ -9,7 +9,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="bg-gray-100 mx-60 my-5">
+<body class="bg-slate-100 mx-44 my-5">
 
     <header>
         @if (Route::has('login'))
