@@ -11,6 +11,8 @@ class Wishlist extends Model
     /** @use HasFactory<\Database\Factories\WishlistFactory> */
     use HasFactory;
 
+    protected $fillable = ['user_id', 'product_id', 'quantity'];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

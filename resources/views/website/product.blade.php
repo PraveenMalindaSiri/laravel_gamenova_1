@@ -48,7 +48,7 @@
     @forelse ($products as $product)
         <x-game-card :product="$product" />
     @empty
-        <div class="text-sm font-semibold text-center">
+        <div class="text-sm font-semibold text-center mb-5">
             No Games!!!
         </div>
     @endforelse

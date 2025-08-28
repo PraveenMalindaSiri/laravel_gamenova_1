@@ -26,13 +26,13 @@
                                 <div class="flex space-x-4">
                                     <a href="{{ route('home') }}" class="link-nav">Home</a>
                                     <a href="{{ route('product.index') }}" class="link-nav">Games</a>
-                                    <a href="{{ route('about') }}" class="link-nav">About</a>
                                     @auth
                                         @if (Auth::user()->isCustomer())
-                                            <a href="#" class="link-nav">Wishlist</a>
-                                            <a href="#" class="link-nav">Cart</a>
+                                            <a href="{{ route('wishlist.index') }}" class="link-nav">Wishlist</a>
+                                            <a href="{{ route('cart.index') }}" class="link-nav">Cart</a>
                                         @endif
                                     @endauth
+                                    <a href="{{ route('about') }}" class="link-nav">About</a>
                                 </div>
                             </div>
                         </div>

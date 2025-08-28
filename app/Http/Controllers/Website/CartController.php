@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Website;
 
 use App\Http\Controllers\Controller;
+use App\Models\CustomerCart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
@@ -12,7 +14,14 @@ class CartController extends Controller
      */
     public function index()
     {
-        //
+        $cart = CustomerCart::with('product')
+            ->where('user_id', Auth::id())
+            ->get();
+
+        $products = $cart->pluck('product');
+
+
+        return view('website.customer.cart', ['products' => $products]);
     }
 
     /**

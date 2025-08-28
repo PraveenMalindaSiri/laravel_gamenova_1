@@ -58,21 +58,32 @@
 
                 <div class="text-2xl font-semibold">Rs. {{ $product->price }}</div>
 
-                {{-- Actions --}}
                 <div class="flex flex-wrap items-end gap-3">
-                    <form action="" method="POST" class="flex items-end gap-3">
+                    <form action="{{ route('cart.store') }}" method="POST" class="flex items-end gap-3">
                         @csrf
-                        <div class="w-28">
-                            <x-input-field name="quantity" type="number" label="Quantity" min="1" step="1"
-                                value="1" />
-                        </div>
-                        <x-button type="submit">Add to Cart</x-button>
+
+                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+
+                        @if (strtolower($product->type) !== 'digital')
+                            <div class="w-28">
+                                <x-input-field name="quantity" type="number" label="Quantity" min="1"
+                                    value="1" />
+                            </div>
+                        @else
+                            <input type="hidden" name="quantity" value="1">
+                        @endif
+
+                        <button type="submit" class="rounded-lg bg-slate-900 px-4 py-2 text-white hover:bg-slate-600">
+                            Add to Cart
+                        </button>
+
+                        {{-- action for Wishlist --}}
+                        <button type="submit" formaction="{{ route('wishlist.store') }}" formmethod="POST"
+                            class="rounded-lg border border-slate-300 px-4 py-2 hover:text-blue-700">
+                            Add to Wishlist
+                        </button>
                     </form>
 
-                    <form action="" method="POST">
-                        @csrf
-                        <x-button type="submit" variant="secondary">Add to Wishlist</x-button>
-                    </form>
                 </div>
 
             </div>
