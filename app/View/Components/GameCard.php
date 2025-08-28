@@ -2,7 +2,6 @@
 
 namespace App\View\Components;
 
-use App\Models\CustomerCart;
 use App\Models\Product;
 use App\Models\Wishlist;
 use Closure;

@@ -10,38 +10,26 @@ use Illuminate\Support\Facades\Auth;
 
 class WishlistController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $wishlists = Wishlist::with('product')
-            ->where('user_id', Auth::id())
+            ->where('user_id', Auth::user()->id)
             ->get();
 
         return view('website.customer.wishlist', ['wishlists' => $wishlists]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $product = Product::findOrFail($request->input('product_id'));
 
         $isDigital = $product->type === "digital";
 
-        $exsist = Wishlist::where('product_id', $product->id)->exists();
+        $exists = Wishlist::where('user_id', Auth::user()->id)
+            ->where('product_id', $product->id)
+            ->exists();
 
-        if ($exsist) {
+        if ($exists) {
             return redirect()->back()->with('error', "You already have this item in your wishlist");
         }
 
@@ -65,33 +53,6 @@ class WishlistController extends Controller
         return redirect()->back()->with('success', "Added the {$product->title} x {$qty} to the wishlist.");
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $wishlist = Wishlist::where('id', $id)

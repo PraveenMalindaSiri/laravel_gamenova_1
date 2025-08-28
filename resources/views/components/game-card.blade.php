@@ -51,7 +51,7 @@
 
                 {{-- add to CART --}}
                 <div>
-                    <form action="" method="POST">
+                    <form action="{{ route('cart.store') }}" method="POST">
                         @csrf
                         <input type="hidden" name="quantity" value="{{ $wishlistAmount }}">
                         <input type="hidden" name="product_id" value="{{ $product->id }}">
@@ -85,7 +85,7 @@
 
                 {{-- Remover from cart --}}
                 <div>
-                    <form action="{{ route('wishlist.destroy') }}">
+                    <form action="{{ route('cart.destroy', $cartItemID) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <input type="hidden" name="product_id" value="{{ $product->id }}">
