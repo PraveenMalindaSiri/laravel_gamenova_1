@@ -23,14 +23,76 @@
             For {{ $product->platform }}
         </div>
 
-        <div class="text-sm font-semibold text-blue-600">
-            Rs.{{ $product->price }}
-        </div>
+        @if ($games || $fromWishlist)
+            <div class="text-sm font-semibold text-blue-600">
+                Rs.{{ $product->price }}
+            </div>
+        @endif
 
-        <div class="text-xm font-semibold">
-            <a href="{{ route('product.show', $product) }}" class="hover:text-blue-600">
-                See more ›
-            </a>
-        </div>
+        @if ($fromCart)
+            <div class="text-sm font-semibold text-blue-600">
+                Rs.{{ $product->price * $cartAmount }}
+            </div>
+        @endif
+
+        @if ($games)
+            <div class="text-xm font-semibold">
+                <a href="{{ route('product.show', $product) }}" class="hover:text-blue-600">
+                    See more ›
+                </a>
+            </div>
+        @endif
+
+        @if ($fromWishlist)
+            <div class="flex flex-col items-center space-y-5">
+                <div class="text-sm font-semibold text-slate-600">
+                    x {{ $wishlistAmount }} {{ Str::plural('item', $wishlistAmount) }}
+                </div>
+
+                {{-- add to CART --}}
+                <div>
+                    <form action="" method="POST">
+                        @csrf
+                        <input type="hidden" name="quantity" value="{{ $wishlistAmount }}">
+                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                        <x-button>Add to cart</x-button>
+                    </form>
+                </div>
+
+                {{-- Remover from wishlist --}}
+                <div>
+                    <form action="{{ route('wishlist.destroy', $wishlistItemID) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                        <x-button>Remove</x-button>
+                    </form>
+                </div>
+            </div>
+        @endif
+
+        @if ($fromCart)
+            <div class="flex flex-col items-center space-y-5">
+                {{-- move back to WISHLIST --}}
+                <div>
+                    <form action="{{ route('wishlist.store') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                        <input type="hidden" name="quantity" value="{{ $wishlistAmount }}">
+                        <x-button>Move to Wishlist</x-button>
+                    </form>
+                </div>
+
+                {{-- Remover from cart --}}
+                <div>
+                    <form action="{{ route('wishlist.destroy') }}">
+                        @csrf
+                        @method('DELETE')
+                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                        <x-button>Remove</x-button>
+                    </form>
+                </div>
+            </div>
+        @endif
     </div>
 </div>

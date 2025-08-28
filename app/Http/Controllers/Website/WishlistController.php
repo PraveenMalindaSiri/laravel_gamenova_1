@@ -94,8 +94,12 @@ class WishlistController extends Controller
      */
     public function destroy(string $id)
     {
+        $wishlist = Wishlist::where('id', $id)
+            ->where('user_id', Auth::id())
+            ->firstOrFail();
 
+        $wishlist->delete();
 
-        return back()->with('success', 'Product deleted');
+        return back()->with('success', 'Item removed from wishlist.');
     }
 }
