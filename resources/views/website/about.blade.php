@@ -3,7 +3,7 @@
 @section('title', 'GameNova About')
 
 @section('content')
-    {{--  --}}
+    
     <div style="background-image: url('{{ asset('assets/images/about.png') }}');"
         class="bg-cover bg-center h-max text-white w-[100%] rounded-lg">
         <section class="w-[70%] text-center mx-auto text-lg pt-5">

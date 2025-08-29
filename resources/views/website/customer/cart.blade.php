@@ -3,7 +3,7 @@
 @section('title', 'GameNova Cart')
 
 @section('content')
-    {{--  --}}
+
 
     @forelse ($carts as $cart)
         <x-game-card :product="$cart->product" :games="false" :fromCart="true" cartAmount="{{ $cart->quantity }}"

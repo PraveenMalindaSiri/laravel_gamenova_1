@@ -3,7 +3,7 @@
 @section('title', 'GameNova Games')
 
 @section('content')
-    {{--  --}}
+    
     <div class="rounded-md border border-black p-5 shadow-lg mb-10">
         <form action="{{ route('product.index') }}" method="GET">
             <div class="mb-4 grid grid-cols-3 gap-4">

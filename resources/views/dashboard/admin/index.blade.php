@@ -20,34 +20,42 @@
                                 class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Email
                             </th>
+                            <th scope="col"
+                                class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Role
+                            </th>
                             <th scope="col" width="200" class="px-6 py-3 bg-gray-50">
                                 Actions
                             </th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                        @forelse ($users as $p)
+                        @forelse ($users as $user)
                             <tr>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                    {{ $p->name }}
+                                    {{ $user->name }}
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                    {{ $p->email }}
+                                    {{ $user->email }}
                                 </td>
 
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                    <a href="{{ route('myproducts.edit', $p) }}"
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    {{ strtoupper($user->role) }}
+                                </td>
+
+                                {{-- <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                    <a href="{{ route('myproducts.edit', $user) }}"
                                         class="text-indigo-600 hover:text-indigo-900 mb-2 mr-2">Edit</a>
 
-                                    <form class="inline-block" action="{{ route('users.destroy', $p) }}" method="POST"
-                                        onsubmit="return confirm('Are you sure?');">
+                                    <form class="inline-block" action="{{ route('users.destroy', $user) }}"
+                                        method="POST" onsubmit="return confirm('Are you sure?');">
                                         @csrf
                                         @method('DELETE')
                                         <input type="submit" class="text-red-600 hover:text-red-900 mb-2 mr-2"
                                             value="Delete">
                                     </form>
-                                </td>
+                                </td> --}}
                             </tr>
                         @empty
                             <tr>

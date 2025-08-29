@@ -40,7 +40,7 @@ Route::middleware([
 
     // Users (Admin only)
     Route::middleware('role:admin')->group(function () {
-        Route::resource('users', UserController::class);
+        Route::resource('users', UserController::class)->only(['index', 'show']);
         Route::resource('feature', FeaturingController::class)->parameters(['feature' => 'product'])->only('update');
     });
 

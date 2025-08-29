@@ -12,7 +12,10 @@ class FeaturingController extends Controller
 
     public function update(Request $request, Product $product)
     {
-        if (!Auth::user()->isAdmin()) {
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+
+        if (!$user->isAdmin()) {
             return redirect()->route('home');
         }
 

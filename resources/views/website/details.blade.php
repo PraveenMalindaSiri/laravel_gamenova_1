@@ -3,7 +3,7 @@
 @section('title', 'Game Details')
 
 @section('content')
-    {{--  --}}
+    
     <div class="container mx-auto p-4 border-y border-slate-400">
         <div class="flex flex-col gap-8 lg:flex-row">
 
@@ -20,7 +20,15 @@
 
             {{-- DETAILS --}}
             <div class="flex w-full flex-col gap-6 lg:w-1/2">
-                <div class="text-3xl font-semibold leading-tight">{{ $product->title }}</div>
+                <div class="text-3xl font-semibold leading-tight">
+                    {{ $product->title }}
+                    @if ($product->deleted_at)
+                        <span class="text-xl text-red-800">- Deleted</span>
+                    @endif
+                    @if ($product->featured)
+                        <span class="text-xl text-yellow-800">- Featured 🔥</span>
+                    @endif
+                </div>
 
                 <p class="text-slate-700">{{ $product->description }}</p>
 
@@ -62,33 +70,41 @@
 
                 <div class="text-2xl font-semibold">Rs. {{ $product->price }}</div>
 
-                <div class="flex flex-wrap items-end gap-3">
-                    <form action="{{ route('cart.store') }}" method="POST" class="flex items-end gap-3">
-                        @csrf
+                @if (!$product->deleted_at && Auth::user()->isCustomer())
+                    <div class="flex flex-wrap items-end gap-3">
+                        <form action="{{ route('cart.store') }}" method="POST" class="flex items-end gap-3">
+                            @csrf
 
-                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                            <input type="hidden" name="product_id" value="{{ $product->id }}">
 
-                        @if (strtolower($product->type) !== 'digital')
-                            <div class="w-28">
-                                <x-input-field name="quantity" type="number" label="Quantity" min="1"
-                                    value="1" />
-                            </div>
-                        @else
-                            <input type="hidden" name="quantity" value="1">
-                        @endif
+                            @if (strtolower($product->type) !== 'digital')
+                                <div class="w-28">
+                                    <x-input-field name="quantity" type="number" label="Quantity" min="1"
+                                        value="1" />
+                                </div>
+                            @else
+                                <input type="hidden" name="quantity" value="1">
+                            @endif
 
-                        <button type="submit" class="rounded-lg bg-slate-900 px-4 py-2 text-white hover:bg-slate-600">
-                            Add to Cart
-                        </button>
+                            <button type="submit" class="rounded-lg bg-slate-900 px-4 py-2 text-white hover:bg-slate-600">
+                                Add to Cart
+                            </button>
 
-                        {{-- action for Wishlist --}}
-                        <button type="submit" formaction="{{ route('wishlist.store') }}" formmethod="POST"
-                            class="rounded-lg border border-slate-300 px-4 py-2 hover:text-blue-700">
-                            Add to Wishlist
-                        </button>
-                    </form>
+                            {{-- action for Wishlist --}}
+                            <button type="submit" formaction="{{ route('wishlist.store') }}" formmethod="POST"
+                                class="rounded-lg border border-slate-300 px-4 py-2 hover:text-blue-700">
+                                Add to Wishlist
+                            </button>
+                        </form>
+                    </div>
+                @endif
 
-                </div>
+                @if (Auth::user()->isSeller() && $product->seller_id === Auth::user()->id)
+                    <div>
+                        <a href="{{ route('myproducts.index') }}"
+                            class="bg-slate-900 py-2 px-4 text-white rounded-md hover:bg-slate-600">Manage</a>
+                    </div>
+                @endif
 
             </div>
         </div>

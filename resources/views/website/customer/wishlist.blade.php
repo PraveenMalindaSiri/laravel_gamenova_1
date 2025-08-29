@@ -3,7 +3,7 @@
 @section('title', 'GameNova Wishlist')
 
 @section('content')
-    {{--  --}}
+    
     @forelse ($wishlists as $wishlist)
         <x-game-card :product="$wishlist->product" :fromWishlist="true" :games="false" wishlistAmount="{{ $wishlist->quantity }}"
             wishlistItemID="{{ $wishlist->id }}" />

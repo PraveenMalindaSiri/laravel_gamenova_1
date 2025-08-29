@@ -3,7 +3,7 @@
 @section('title', 'GameNova')
 
 @section('content')
-    {{--  --}}
+    
     <div>
         <div style="background-image: linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,.25)), url('{{ asset('assets/images/main img.png') }}');"
             class="hidden md:block bg-cover bg-center w-full text-white rounded-lg">
@@ -38,11 +38,13 @@
         </div>
     </div>
 
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-10 bg-gray-900 p-4 rounded-lg">
+    <div
+        class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-10 p-4 rounded-lg bg-gradient-to-br from-blue-900 via-cyan-600 to-gray-800
+">
         <div class="flex items-end justify-between mb-2">
             <div>
                 <h2 class="text-2xl font-bold mb-1 text-white">Latest Releases</h2>
-                <p class="text-md text-slate-300">Fresh drops—grab them while they’re hot.</p>
+                <p class="text-md text-slate-200">Fresh drops—grab them while they’re hot.</p>
             </div>
             <a href="{{ route('product.index') }}" class="text-md font-semibold text-slate-300 hover:text-white">
                 View all ›
@@ -62,11 +64,12 @@
         </div>
     </div>
 
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-10 bg-gray-900 p-4 rounded-lg">
+    <div
+        class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-10 p-4 rounded-lg bg-gradient-to-br from-red-800 via-red-600 to-orange-500">
         <div class="flex items-end justify-between mb-2">
             <div>
                 <h2 class="text-2xl font-bold mb-1 text-white">Featured Games</h2>
-                <p class="text-md text-slate-300">Hand-picked titles our team recommends for every gamer.</p>
+                <p class="text-md text-slate-200">Hand-picked titles our team recommends for every gamer.</p>
             </div>
             <a href="{{ route('product.index') }}" class="text-md font-semibold text-slate-300 hover:text-white">
                 View all ›
