@@ -2,6 +2,8 @@
 
 namespace App\Livewire;
 
+use App\Services\OrderService;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class PaymentForm extends Component
@@ -18,13 +20,19 @@ class PaymentForm extends Component
         'amount'     => 'required|numeric|min:1',
     ];
 
-    public function submit()
+    public function submit(OrderService $orders)
     {
         $this->validate();
 
-        session()->flash('success', 'Payment processed successfully.');
+        try {
+            $order = $orders->createFromCart(Auth::user()->id); // running the DB transaction
+        } catch (\Throwable $th) {
+            return redirect()
+                ->route('cart.index')
+                ->with('error', $th->getMessage());
+        }
 
-        // return redirect()->route('purchase.create');
+        return redirect()->route('orders.index')->with('success', 'Order placed successfully. View more details here');
     }
 
     public function updated($property)

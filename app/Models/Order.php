@@ -12,7 +12,7 @@ class Order extends Model
     /** @use HasFactory<\Database\Factories\OrderFactory> */
     use HasFactory;
 
-    protected $fillable = ['user_id', 'totalprice', 'orderdate'];
+    protected $fillable = ['user_id', 'totalprice', 'orderdate', 'items_count'];
 
     protected $casts = [
         'totalprice' => 'decimal:2',

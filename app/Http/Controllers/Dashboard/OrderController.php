@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
+use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,11 +15,25 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = null;
-        return view(
-            'dashboard.orders.index',
-            ['panel' => Auth::user()->role, 'orders' => $orders]
-        );
+
+        /** @var \App\Models\User|null $user */
+        $user = Auth::user();
+
+        if ($user?->isAdmin()) {
+            $orders = Order::with('user')->latest()->get();
+        } elseif ($user?->isCustomer()) {
+            $orders = Order::with('user')
+                ->where('user_id', $user->id)
+                ->latest()
+                ->get();
+        } else {
+            $orders = collect(); // e.g. seller or unknown role
+        }
+
+        return view('dashboard.orders.index', [
+            'panel'  => $user?->role,
+            'orders' => $orders,
+        ]);
     }
 
     /**
@@ -39,9 +55,21 @@ class OrderController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Order $order)
     {
-        return view('dashboard.orders.show.');
+        /** @var \App\Models\User|null $user */
+        $user = Auth::user();
+
+        if (! $user->isAdmin() && $order->user_id !== $user->id) {
+            abort(403, "You are not allowed to view this order.");
+        }
+
+        // via relation (recommended)
+        $orderItems = $order->items()->with('product')->get();
+
+        return view('dashboard.orders.show', [
+            'orderItems' => $orderItems,
+        ]);
     }
 
     /**

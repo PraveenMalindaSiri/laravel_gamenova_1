@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $t) {
             $t->id();
             $t->foreignId('user_id')->constrained('users');
-            $t->decimal('totalprice', 10, 2)->nullable();
+            $t->decimal('totalprice', 10, 2);
+            $t->decimal('items_count', 10, 2);
             $t->dateTime('orderdate')->useCurrent();
             $t->timestamps();
         });

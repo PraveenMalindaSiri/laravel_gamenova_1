@@ -1,8 +1,7 @@
 <x-app-layout>
-
     <x-slot name="header">
         <h2 class="font-semibold text-xl">
-            {{ $panel === 'admin' ? 'All Order' : 'My Orders' }}
+            {{ 'Order Items' }}
         </h2>
     </x-slot>
 
@@ -14,19 +13,19 @@
                         <tr>
                             <th scope="col" width="50"
                                 class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Order
+                                Game
                             </th>
                             <th scope="col" width="50"
                                 class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                User
+                                Quantity
                             </th>
                             <th scope="col"
                                 class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Total Price
+                                Price
                             </th>
                             <th scope="col"
                                 class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Order Date
+                                Digital Code - Digital Editions ONLY
                             </th>
                             <th scope="col" width="200" class="px-6 py-3 bg-gray-50">
                                 Actions
@@ -34,27 +33,33 @@
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                        @forelse ($orders as $order)
+                        @forelse ($orderItems as $order)
                             <tr>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                    {{ $order->id }}
+                                    {{ $order->product->title }}
+                                    @if ($order->product->deleted_at)
+                                        <span class="text-xs text-red-800">- Deleted</span>
+                                    @endif
+                                    @if ($order->product->featured)
+                                        <span class="text-xs text-yellow-800">- Featured</span>
+                                    @endif
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                    {{ $order->user->name }}
+                                    {{ $order->quantity }}
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                    {{ $order->totalprice }}
+                                    {{ $order->price }}
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                    {{ $order->orderdate->format('M d, Y') }}
+                                    {{ $order->digitalcode ?? '---' }}
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                    <a href="{{ route('orders.show', $order) }}"
-                                        class="text-indigo-600 hover:text-indigo-900 mb-2 mr-2">View</a>
+                                    <a href="{{ route('product.show', $order->product) }}"
+                                        class="text-indigo-600 hover:text-indigo-900 mb-2 mr-2">View Product</a>
                                 </td>
                             </tr>
                         @empty
@@ -70,4 +75,6 @@
             </div>
         </div>
     </div>
+
+
 </x-app-layout>

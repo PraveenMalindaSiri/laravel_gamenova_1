@@ -8,7 +8,6 @@ use App\Http\Controllers\Website\AboutController;
 use App\Http\Controllers\Website\CartController;
 use App\Http\Controllers\Website\HomeController;
 use App\Http\Controllers\Website\ProductPageController;
-use App\Http\Controllers\Website\PurchaseController;
 use App\Http\Controllers\Website\WishlistController;
 use Illuminate\Support\Facades\Route;
 
@@ -49,7 +48,6 @@ Route::middleware([
     Route::middleware('role:customer')->group(function () {
         Route::resource('wishlist', WishlistController::class)->only(['index', 'store', 'destroy']);
         Route::resource('cart', CartController::class)->only(['index', 'store', 'destroy']);
-        Route::resource('purchase', PurchaseController::class);
         Route::get('/payment', fn() => view('website.customer.payment'))->name('payment.page');
     });
 });
