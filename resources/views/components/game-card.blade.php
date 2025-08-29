@@ -1,4 +1,4 @@
-<div class="rounded-md border border-black p-5 shadow-lg mb-5">
+<div class="rounded-md border border-black p-5 shadow-lg mb-5 bg-white">
     <div class="grid grid-cols-7 items-center gap-6">
         <div class="col-span-2">
             <img src="{{ asset('assets/images/loginimg.png') }}" alt="{{ $product->title }}"

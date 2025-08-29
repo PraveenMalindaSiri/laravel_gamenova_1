@@ -38,6 +38,7 @@ class Product extends Model
         'released_date' => 'date',
         'size'          => 'decimal:2',
         'age_rating'    => 'integer',
+        'featured' => 'boolean',
     ];
 
     public static array $platforms = ['PC', 'XBOX', 'PS4', 'PS5'];

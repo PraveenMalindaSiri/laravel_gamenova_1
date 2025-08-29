@@ -1,16 +1,15 @@
 <?php
 
+use App\Http\Controllers\Dashboard\FeaturingController;
 use App\Http\Controllers\Dashboard\OrderController;
 use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Website\AboutController;
 use App\Http\Controllers\Website\CartController;
 use App\Http\Controllers\Website\HomeController;
-use App\Http\Controllers\Website\PaymentPageController;
 use App\Http\Controllers\Website\ProductPageController;
 use App\Http\Controllers\Website\PurchaseController;
 use App\Http\Controllers\Website\WishlistController;
-use App\Livewire\PaymentForm;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -42,6 +41,7 @@ Route::middleware([
     // Users (Admin only)
     Route::middleware('role:admin')->group(function () {
         Route::resource('users', UserController::class);
+        Route::resource('feature', FeaturingController::class)->parameters(['feature' => 'product'])->only('update');
     });
 
 

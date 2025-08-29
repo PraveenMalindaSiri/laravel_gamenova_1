@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Website;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -12,6 +13,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('website.home');
+        $products = Product::latest()->take(5)->get();
+        $featured = Product::where('featured', true)->latest()->get();
+
+        return view('website.home', ["products" => $products, "featured" => $featured]);
     }
 }

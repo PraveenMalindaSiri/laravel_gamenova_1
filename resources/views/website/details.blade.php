@@ -1,5 +1,9 @@
-<x-layout>
+@extends('layouts.layout')
 
+@section('title', 'Game Details')
+
+@section('content')
+    {{--  --}}
     <div class="container mx-auto p-4 border-y border-slate-400">
         <div class="flex flex-col gap-8 lg:flex-row">
 
@@ -89,5 +93,4 @@
             </div>
         </div>
     </div>
-
-</x-layout>
+@endsection

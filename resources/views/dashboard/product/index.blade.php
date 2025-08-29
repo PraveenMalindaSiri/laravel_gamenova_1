@@ -45,6 +45,9 @@
                                     @if ($product->deleted_at)
                                         <span class="text-xs text-red-800">- Deleted</span>
                                     @endif
+                                    @if ($product->featured)
+                                        <span class="text-xs text-yellow-800">- Featured</span>
+                                    @endif
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
@@ -89,11 +92,28 @@
                                         </form>
                                     @endif
 
+                                    @if (Auth::user()->isAdmin())
+                                        <form class="inline-block ml-2" action="{{ route('feature.update', $product) }}"
+                                            method="POST">
+                                            @csrf
+                                            @method('PATCH')
+                                            @if ($product->featured)
+                                                <input type="hidden" name="featured" value="0">
+                                                <input type="submit" class="text-yellow-700 hover:text-yellow-900 mb-2"
+                                                    value="Unfeature">
+                                            @else
+                                                <input type="hidden" name="featured" value="1">
+                                                <input type="submit" class="text-green-600 hover:text-green-900 mb-2"
+                                                    value="Feature">
+                                            @endif
+                                        </form>
+                                    @endif
+
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900" colspan="3">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900" colspan="6">
                                     No Products in the system
                                 </td>
                             </tr>
