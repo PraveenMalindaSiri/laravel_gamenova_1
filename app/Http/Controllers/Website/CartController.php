@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Website;
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\Product;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,6 +27,12 @@ class CartController extends Controller
     public function store(Request $request)
     {
         $product = Product::findOrFail($request->input('product_id'));
+
+        $age = Carbon::parse(Auth::user()->dob)->age;
+
+        if ($age < (int) $product->age_rating) {
+            return redirect()->back()->with('error', 'You are not old enough to purchase this product.');
+        }
 
         $isDigital = $product->type === "digital";
 

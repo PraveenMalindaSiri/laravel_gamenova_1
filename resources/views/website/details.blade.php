@@ -3,7 +3,7 @@
 @section('title', 'Game Details')
 
 @section('content')
-    
+
     <div class="container mx-auto p-4 border-y border-slate-400">
         <div class="flex flex-col gap-8 lg:flex-row">
 
@@ -70,7 +70,7 @@
 
                 <div class="text-2xl font-semibold">Rs. {{ $product->price }}</div>
 
-                @if (!$product->deleted_at && Auth::user()->isCustomer())
+                @if (!$product->deleted_at && Auth::user()->isCustomer() && Auth::user()->dob)
                     <div class="flex flex-wrap items-end gap-3">
                         <form action="{{ route('cart.store') }}" method="POST" class="flex items-end gap-3">
                             @csrf
@@ -96,6 +96,18 @@
                                 Add to Wishlist
                             </button>
                         </form>
+                    </div>
+                @endif
+
+                @if (Auth::user()->isCustomer() && !Auth::user()->dob)
+                    <div>
+                        <p class="mb-2 text-red-700">
+                            Your date of birth is missing from your profile. Please update it to continue using all
+                            features.
+                        </p>
+                        <a href="{{ route('profile.show') }}"
+                            class="bg-slate-900 p-1 text-white rounded-md hover:bg-slate-600">Update ›
+                        </a>
                     </div>
                 @endif
 

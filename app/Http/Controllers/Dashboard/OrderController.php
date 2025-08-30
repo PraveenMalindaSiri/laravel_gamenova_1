@@ -20,11 +20,10 @@ class OrderController extends Controller
         $user = Auth::user();
 
         if ($user?->isAdmin()) {
-            $orders = Order::with('user')->latest()->get();
+            $orders = Order::with('user')->get();
         } elseif ($user?->isCustomer()) {
             $orders = Order::with('user')
                 ->where('user_id', $user->id)
-                ->latest()
                 ->get();
         } else {
             $orders = collect(); // e.g. seller or unknown role

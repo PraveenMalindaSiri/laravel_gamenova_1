@@ -49,6 +49,20 @@
                     x {{ $wishlistAmount }} {{ Str::plural('item', $wishlistAmount) }}
                 </div>
 
+                @if ($product->type != 'difital')
+                    <form action="{{ route('wishlist.update', $wishlistItemID) }}" method="POST"
+                        class="flex items-center space-x-2">
+                        @csrf
+                        @method('PATCH')
+
+                        <input type="number" name="quantity" value="{{ $wishlistAmount }}" min="1"
+                            max="{{ $product->type === 'digital' ? 1 : 10 }}"
+                            class="w-10 rounded-md border px-2 py-1 text-sm">
+
+                        <x-button>Update</x-button>
+                    </form>
+                @endif
+
                 {{-- add to CART --}}
                 <div>
                     <form action="{{ route('cart.store') }}" method="POST">

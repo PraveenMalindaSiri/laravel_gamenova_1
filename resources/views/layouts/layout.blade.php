@@ -28,6 +28,13 @@
         </div>
     @endif
 
+    @if (session('info'))
+        <div role="alert" class="py-5 my-8 rounded-md border-l-4 border-blue-600 bg-blue-400 text-blue-900">
+            <p class="font-bold pl-10">Error!!!</p>
+            <p class="pl-10">{{ session('info') }}</p>
+        </div>
+    @endif
+
     @yield('content')
 
     @stack('scripts')

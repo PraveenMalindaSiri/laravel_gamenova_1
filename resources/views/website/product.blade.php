@@ -3,14 +3,15 @@
 @section('title', 'GameNova Games')
 
 @section('content')
-    
+
     <div class="rounded-md border border-black p-5 shadow-lg mb-10">
         <form action="{{ route('product.index') }}" method="GET">
             <div class="mb-4 grid grid-cols-3 gap-4">
 
                 <div class="mb-4 col-span-2">
                     <div>Search</div>
-                    <x-input-field name="search" value="{{ request('search') }}" placeholder="Seach for any input" />
+                    <x-input-field name="search" value="{{ request('search') }}"
+                        placeholder="Enter Game name or description" />
                 </div>
 
                 <div class="mb-4">
