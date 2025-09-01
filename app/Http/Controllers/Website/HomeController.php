@@ -14,7 +14,7 @@ class HomeController extends Controller
     public function index()
     {
         $products = Product::latest()->take(5)->get();
-        $featured = Product::where('featured', true)->latest()->get();
+        $featured = Product::where('featured', true)->latest()->take(5)->get();
 
         return view('website.home', ["products" => $products, "featured" => $featured]);
     }
