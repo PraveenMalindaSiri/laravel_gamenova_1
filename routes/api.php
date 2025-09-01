@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Dashboard\ProductController;
 use App\Http\Controllers\Api\HomeScreenController;
 use App\Http\Controllers\Api\ProductsScreenController;
 use Illuminate\Http\Request;
@@ -18,7 +19,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
         // cart/ wishlsit
     });
 
-    Route::middleware('role:seller')->group(function () {
-        // product crud
+    Route::middleware('role:seller,admin')->group(function () {
+        Route::apiResource('myproducts', ProductController::class)->parameters(['myproducts' => 'product'])->except('show');
+        Route::patch('myproducts/{product}/restore', [ProductController::class, 'restore'])
+            ->name('myproducts.restore');
     });
 });
