@@ -47,7 +47,7 @@ Route::middleware([
     // Cart and Wishlist
     Route::middleware('role:customer')->group(function () {
         Route::resource('wishlist', WishlistController::class)->only(['index', 'store', 'destroy', 'update']);
-        Route::resource('cart', CartController::class)->only(['index', 'store', 'destroy']);
+        Route::resource('cart', CartController::class)->only(['index', 'store', 'destroy', 'update']);
         Route::get('/payment', fn() => view('website.customer.payment'))->name('payment.page');
     });
 });

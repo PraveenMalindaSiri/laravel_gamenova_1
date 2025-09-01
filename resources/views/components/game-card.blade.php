@@ -31,7 +31,7 @@
 
         @if ($fromCart)
             <div class="text-sm font-semibold text-blue-600">
-                Rs.{{ $product->price * $cartAmount }}
+                Rs.{{ number_format($product->price * $cartAmount) }}
             </div>
         @endif
 
@@ -49,7 +49,7 @@
                     x {{ $wishlistAmount }} {{ Str::plural('item', $wishlistAmount) }}
                 </div>
 
-                @if ($product->type != 'difital')
+                @if ($product->type != 'digital')
                     <form action="{{ route('wishlist.update', $wishlistItemID) }}" method="POST"
                         class="flex items-center space-x-2">
                         @csrf
@@ -87,12 +87,26 @@
 
         @if ($fromCart)
             <div class="flex flex-col items-center space-y-5">
+                @if ($product->type != 'digital')
+                    <form action="{{ route('cart.update', $cartItemID) }}" method="POST"
+                        class="flex items-center space-x-2">
+                        @csrf
+                        @method('PATCH')
+
+                        <input type="number" name="quantity" value="{{ $cartAmount }}" min="1"
+                            max="{{ $product->type === 'digital' ? 1 : 10 }}"
+                            class="w-10 rounded-md border px-2 py-1 text-sm">
+
+                        <x-button>Update</x-button>
+                    </form>
+                @endif
+
                 {{-- move back to WISHLIST --}}
                 <div>
                     <form action="{{ route('wishlist.store') }}" method="POST">
                         @csrf
                         <input type="hidden" name="product_id" value="{{ $product->id }}">
-                        <input type="hidden" name="quantity" value="{{ $wishlistAmount }}">
+                        <input type="hidden" name="quantity" value="{{ $cartAmount }}">
                         <x-button>Add to Wishlist</x-button>
                     </form>
                 </div>

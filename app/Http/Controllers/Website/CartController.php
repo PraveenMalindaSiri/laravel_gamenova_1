@@ -64,6 +64,34 @@ class CartController extends Controller
         return redirect()->back()->with('success', "Added '{$product->title}' x {$qty} to the Cart.");
     }
 
+    public function update(Request $request, string $id)
+    {
+        $cart = Cart::with('product')
+            ->where('id', $id)
+            ->where('user_id', Auth::user()->id)
+            ->firstOrFail();
+
+        $isDigital = $cart->product->type === 'digital';
+
+        $rules = ['quantity' => ['required', 'integer', 'min:1']];
+        $rules['quantity'][] = $isDigital ? 'max:1' : 'max:10';
+
+        $validated = $request->validate($rules);
+
+        $qty = (int) $validated['quantity'];
+        if ($isDigital) {
+            $qty = 1;
+        }
+
+        if ($qty === $cart->quantity) {
+            return back()->with('info', "No changes were made to '{$cart->product->title}'.");
+        }
+
+        $cart->update(['quantity' => $qty]);
+
+        return back()->with('success', "Updated '{$cart->product->title}' to x{$qty} in your cart.");
+    }
+
     public function destroy(string $id)
     {
         $cart = Cart::where('id', $id)
