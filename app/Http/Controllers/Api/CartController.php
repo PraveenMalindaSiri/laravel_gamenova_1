@@ -24,7 +24,7 @@ class CartController extends Controller
             ->get();
 
         return CartResourec::collection($carts)->response()
-            ->setStatusCode(200);;
+            ->setStatusCode(200);
     }
 
     /**
