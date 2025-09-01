@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\Dashboard\ProductController;
 use App\Http\Controllers\Api\HomeScreenController;
 use App\Http\Controllers\Api\ProductsScreenController;
+use App\Http\Controllers\Api\WishlistController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,7 +18,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/products', [ProductsScreenController::class, 'index']);
 
     Route::middleware('role:customer')->group(function () {
-        // cart/ wishlsit
+        Route::apiResource('cart', CartController::class)->only(['index', 'store', 'destroy', 'update']);
+        Route::apiResource('wishlist', WishlistController::class)->only(['index', 'store', 'destroy', 'update']);
     });
 
     Route::middleware('role:seller,admin')->group(function () {
