@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\ProductRevenue;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -47,6 +48,14 @@ class OrderService
                     'is_digital'    => $isDigital,
                     'digitalcode'  => $digitalCode,
                 ]);
+
+                $rev = ProductRevenue::firstOrCreate(
+                    ['product_id' => $product->id],
+                    ['seller_id' => $product->seller_id, 'units_sold' => 0, 'gross_revenue' => 0]
+                );
+
+                $rev->increment('units_sold', $amount);
+                $rev->increment('gross_revenue', $product->price * $amount);
             }
             Cart::where('user_id', $userId)->delete();
 

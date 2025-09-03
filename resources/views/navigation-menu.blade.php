@@ -45,6 +45,13 @@
                         </x-nav-link>
                     @endif
 
+                    {{-- show all games --}}
+                    @if (Auth::user()->isAdmin() || Auth::user()->isSeller())
+                        <x-nav-link href="{{ route('revenue.index') }}" :active="request()->routeIs('revenue.index')">
+                            {{ __('Revenue') }}
+                        </x-nav-link>
+                    @endif
+
                 </div>
             </div>
 

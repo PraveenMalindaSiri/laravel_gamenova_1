@@ -3,6 +3,7 @@
 use App\Http\Controllers\Dashboard\FeaturingController;
 use App\Http\Controllers\Dashboard\OrderController;
 use App\Http\Controllers\Dashboard\ProductController;
+use App\Http\Controllers\Dashboard\RevenueController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Website\AboutController;
 use App\Http\Controllers\Website\CartController;
@@ -28,6 +29,7 @@ Route::middleware([
     // Products (Admin + Seller)
     Route::middleware('role:admin,seller')->group(function () {
         Route::resource('myproducts', ProductController::class)->parameters(['myproducts' => 'product'])->except('show');
+        Route::resource('revenue', RevenueController::class)->only(['index']);
         Route::patch('myproducts/{product}/restore', [ProductController::class, 'restore'])
             ->name('myproducts.restore');
     });

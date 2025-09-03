@@ -1,5 +1,5 @@
 <div
-    class="rounded-2xl border border-slate-800/20 p-6 shadow-2xl mb-8 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 hover:shadow-cyan-500/25 transition-all duration-500 transform hover:-translate-y-1 overflow-hidden">
+    class="rounded-2xl border border-slate-800/20 p-6 shadow-2xl mb-8 bg-gradient-to-br from-slate-900 via-slate-700 to-slate-900 hover:shadow-cyan-500/25 transition-all duration-500 transform hover:-translate-y-1 overflow-hidden">
     <div class="grid grid-cols-7 items-center gap-6">
         <div class="col-span-2">
             <img src="{{ asset('assets/images/loginimg.png') }}" alt="{{ $product->title }}"
@@ -7,21 +7,23 @@
 
             {{-- <img src="{{ $product->image_url }}"
                  alt="{{ $product->title }}"
-                 class="w-68 h-48 object-cover rounded-md shadow"> --}}
+                 class="w-68 h-48 object-cover rounded-md shadow border-2 border-slate-400"> --}}
         </div>
 
         <div class="text-sm font-semibold">
-            <a href="{{ route('product.show', $product) }}" class="hover:text-blue-600 text-white hover:underline transition-all duration-300">
+            <a href="{{ route('product.show', $product) }}"
+                class="hover:text-blue-600 text-white hover:underline transition-all duration-300">
                 {{ ucwords($product->title) }}
             </a>
         </div>
 
         <div
-            class="text-center px-4 py-2 rounded-full text-sm font-semibold bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg hover:shadow-purple-500/50 transition-all duration-300">
+            class="text-center px-3 py-2 rounded-full text-sm font-semibold bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg hover:shadow-purple-500/50 transition-all duration-300">
             {{ ucfirst($product->type) }} Edition
         </div>
 
-        <div class="text-center px-4 py-2 rounded-full text-sm font-semibold bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-lg hover:shadow-blue-500/50 transition-all duration-300">
+        <div
+            class="text-center px-4 py-2 rounded-full text-sm font-semibold bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-lg hover:shadow-blue-500/50 transition-all duration-300">
             For {{ $product->platform }}
         </div>
 
@@ -39,7 +41,8 @@
 
         @if ($games)
             <div class="text-xm font-semibold">
-                <a href="{{ route('product.show', $product) }}" class="hover:text-white p-2 bg-slate-400 rounded-md hover:bg-slate-700 transition-all duration-300">
+                <a href="{{ route('product.show', $product) }}"
+                    class="hover:text-white p-2 bg-slate-400 rounded-md hover:bg-slate-700 transition-all duration-300">
                     See more ›
                 </a>
             </div>

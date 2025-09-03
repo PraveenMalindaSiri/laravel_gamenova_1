@@ -1,6 +1,6 @@
 <header>
     @if (Route::has('login'))
-        <nav class="bg-blue-800 rounded-lg shadow-lg shadow-slate-500 mb-5">
+        <nav class="bg-gradient-to-br from-blue-900 via-blue-600 to-sky-700 rounded-lg shadow-lg shadow-slate-500 mb-5">
             <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
                 <div class="relative flex h-16 items-center justify-between">
 
