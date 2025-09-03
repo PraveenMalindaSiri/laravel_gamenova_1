@@ -12,6 +12,8 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
+
+Route::get('/products', [ProductsScreenController::class, 'index']);
 Route::middleware(['auth:sanctum'])->as('api.')->group(function () {
 
     Route::get('/home', [HomeScreenController::class, 'index']);

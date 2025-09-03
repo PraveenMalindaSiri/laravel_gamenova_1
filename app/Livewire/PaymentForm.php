@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Cart;
 use App\Services\OrderService;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -12,13 +13,28 @@ class PaymentForm extends Component
     public $expiry;
     public $cvv;
     public $amount;
+    public $address;
 
     protected $rules = [
         'cardNumber' => 'required|digits:16',
-        'expiry'     => 'required|date_format:m/y|after:today',
+        'expiry'     => ['required', 'regex:/^(0[1-9]|1[0-2])\/\d{2}$/'],
         'cvv'        => 'required|digits:3',
-        'amount'     => 'required|numeric|min:1',
+        'address' => 'required|string|min:5'
     ];
+
+    public function mount()
+    {
+        $this->amount = $this->calculateCartTotal();
+    }
+
+    private function calculateCartTotal(): float
+    {
+        $carts = Cart::with('product')
+            ->where('user_id', Auth::id())
+            ->get();
+
+        return (float) $carts->sum(fn($c) => (float)$c->product->price * (int)$c->quantity);
+    }
 
     public function submit(OrderService $orders)
     {

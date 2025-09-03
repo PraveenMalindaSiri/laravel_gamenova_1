@@ -16,7 +16,11 @@
         </div>
 
         <div>
-            <x-input-field name="amount" label="Amount" required wire:model.live="amount" />
+            <x-input-field name="amount" label="Amount" required wire:model.live="amount" readonly />
+        </div>
+
+        <div>
+            <x-input-field name="address" label="Address" required wire:model.live="address" />
         </div>
 
         <x-button>Pay Now</x-button>

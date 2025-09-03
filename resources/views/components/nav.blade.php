@@ -11,15 +11,15 @@
                         </div>
                         <div class="hidden sm:ml-6 sm:block">
                             <div class="flex space-x-4">
-                                <a href="{{ route('home') }}" class="link-nav">Home</a>
-                                <a href="{{ route('product.index') }}" class="link-nav">Games</a>
+                                <a href="{{ route('home') }}" class="link-nav {{ request()->routeIs('home') ? 'bg-blue-900 text-white' : '' }}">Home</a>
+                                <a href="{{ route('product.index') }}" class="link-nav {{ request()->routeIs('product.*') ? 'bg-blue-900 text-white' : '' }}">Games</a>
                                 @auth
                                     @if (Auth::user()->isCustomer())
-                                        <a href="{{ route('wishlist.index') }}" class="link-nav">Wishlist</a>
-                                        <a href="{{ route('cart.index') }}" class="link-nav">Cart</a>
+                                        <a href="{{ route('wishlist.index') }}" class="link-nav {{ request()->routeIs('wishlist.*') ? 'bg-blue-900 text-white' : '' }}">Wishlist</a>
+                                        <a href="{{ route('cart.index') }}" class="link-nav {{ request()->routeIs('cart.*') ? 'bg-blue-900 text-white' : '' }}">Cart</a>
                                     @endif
                                 @endauth
-                                <a href="{{ route('about') }}" class="link-nav">About</a>
+                                <a href="{{ route('about') }}" class="link-nav {{ request()->routeIs('about') ? 'bg-blue-900 text-white' : '' }}">About</a>
                             </div>
                         </div>
                     </div>
