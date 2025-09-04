@@ -13,18 +13,19 @@
                     <thead>
                         <tr>
                             <th scope="col" width="50"
-                                class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                class="w-1/4 px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Name
                             </th>
                             <th scope="col"
-                                class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                class="w-1/4 px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Email
                             </th>
                             <th scope="col"
-                                class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                class="w-1/4 px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Role
                             </th>
-                            <th scope="col" width="200" class="px-6 py-3 bg-gray-50">
+                            <th scope="col" width="200"
+                                class="w-1/4 px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Actions
                             </th>
                         </tr>
@@ -32,34 +33,34 @@
                     <tbody class="bg-white divide-y divide-gray-200">
                         @forelse ($users as $user)
                             <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center">
                                     {{ $user->name }}
                                 </td>
 
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center">
                                     {{ $user->email }}
                                 </td>
 
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center">
                                     {{ strtoupper($user->role) }}
                                 </td>
 
-                                {{-- <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                    <a href="{{ route('myproducts.edit', $user) }}"
-                                        class="text-indigo-600 hover:text-indigo-900 mb-2 mr-2">Edit</a>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-center">
+                                    <a href="{{ route('users.show', $user) }}"
+                                        class="text-indigo-600 hover:text-indigo-900 mb-2 mr-2">Details</a>
 
-                                    <form class="inline-block" action="{{ route('users.destroy', $user) }}"
+                                    {{-- <form class="inline-block" action="{{ route('users.destroy', $user) }}"
                                         method="POST" onsubmit="return confirm('Are you sure?');">
                                         @csrf
                                         @method('DELETE')
                                         <input type="submit" class="text-red-600 hover:text-red-900 mb-2 mr-2"
                                             value="Delete">
-                                    </form>
-                                </td> --}}
+                                    </form> --}}
+                                </td>
                             </tr>
                         @empty
                             <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900" colspan="3">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900" colspan="4">
                                     No Users in the system
                                 </td>
                             </tr>

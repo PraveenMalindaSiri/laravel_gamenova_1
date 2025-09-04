@@ -25,6 +25,7 @@ class PaymentForm extends Component
     public function mount()
     {
         $this->amount = $this->calculateCartTotal();
+        $this->address = Auth::user()->address ?? "";
     }
 
     private function calculateCartTotal(): float

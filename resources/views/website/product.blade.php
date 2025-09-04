@@ -58,4 +58,11 @@
             No Games!!!
         </div>
     @endforelse
+
+    <div>
+        @if ($products->count())
+            {{ $products->links() }}
+        @endif
+    </div>
+
 @endsection

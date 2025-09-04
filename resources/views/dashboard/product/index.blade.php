@@ -93,8 +93,8 @@
                                     @endif
 
                                     @if (Auth::user()->isAdmin())
-                                        <form class="inline-block ml-2" action="{{ route('feature.update', $product) }}"
-                                            method="POST">
+                                        <form class="inline-block ml-2"
+                                            action="{{ route('feature.update', $product) }}" method="POST">
                                             @csrf
                                             @method('PATCH')
                                             @if ($product->featured)
@@ -121,6 +121,11 @@
                     </tbody>
                 </table>
 
+                @if ($products->count())
+                    <div class="p-4">
+                        {{ $products->links() }}
+                    </div>
+                @endif
 
             </div>
         </div>

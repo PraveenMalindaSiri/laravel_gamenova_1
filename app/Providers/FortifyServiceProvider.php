@@ -60,7 +60,7 @@ class FortifyServiceProvider extends ServiceProvider
                 }
 
                 // default (customer)
-                return redirect()->intended(url('/'));
+                return redirect()->intended(route('home'));
             }
         });
     }
