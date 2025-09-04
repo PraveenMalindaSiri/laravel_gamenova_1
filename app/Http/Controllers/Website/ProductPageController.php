@@ -15,8 +15,9 @@ class ProductPageController extends Controller
         return view('website.product', ['products' => Product::filter($filters)->paginate(15)->withQueryString()]);
     }
 
-    public function show(Product $product)
+    public function show(String $id)
     {
+        $product = Product::withTrashed()->findOrFail($id); // can load trashed games details
         return view('website.details', ['product' => $product]);
     }
 }

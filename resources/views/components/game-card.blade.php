@@ -54,29 +54,38 @@
                     x {{ $wishlistAmount }} {{ Str::plural('item', $wishlistAmount) }}
                 </div>
 
-                @if ($product->type != 'digital')
-                    <form action="{{ route('wishlist.update', $wishlistItemID) }}" method="POST"
-                        class="flex items-center space-x-2">
-                        @csrf
-                        @method('PATCH')
-
-                        <input type="number" name="quantity" value="{{ $wishlistAmount }}" min="1"
-                            max="{{ $product->type === 'digital' ? 1 : 10 }}"
-                            class="w-10 rounded-md border px-2 py-1 text-sm">
-
-                        <x-button class="bg-slate-600">Update</x-button>
-                    </form>
+                @if ($product->deleted_at)
+                    <div class="text-sm font-semibold text-red-300 text-center">
+                        This is a deleted item. Please remove this from your wishlist.
+                    </div>
                 @endif
 
-                {{-- add to CART --}}
-                <div>
-                    <form action="{{ route('cart.store') }}" method="POST">
-                        @csrf
-                        <input type="hidden" name="quantity" value="{{ $wishlistAmount }}">
-                        <input type="hidden" name="product_id" value="{{ $product->id }}">
-                        <x-button class="bg-slate-600">Add to cart</x-button>
-                    </form>
-                </div>
+
+                @if (!$product->deleted_at)
+                    @if ($product->type != 'digital')
+                        <form action="{{ route('wishlist.update', $wishlistItemID) }}" method="POST"
+                            class="flex items-center space-x-2">
+                            @csrf
+                            @method('PATCH')
+
+                            <input type="number" name="quantity" value="{{ $wishlistAmount }}" min="1"
+                                max="{{ $product->type === 'digital' ? 1 : 10 }}"
+                                class="w-10 rounded-md border px-2 py-1 text-sm">
+
+                            <x-button class="bg-slatre-600">Update</x-button>
+                        </form>
+                    @endif
+
+                    {{-- add to CART --}}
+                    <div>
+                        <form action="{{ route('cart.store') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="quantity" value="{{ $wishlistAmount }}">
+                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                            <x-button class="bg-slate-600">Add to cart</x-button>
+                        </form>
+                    </div>
+                @endif
 
                 {{-- Remover from wishlist --}}
                 <div>
@@ -92,29 +101,39 @@
 
         @if ($fromCart)
             <div class="flex flex-col items-center space-y-5">
-                @if ($product->type != 'digital')
-                    <form action="{{ route('cart.update', $cartItemID) }}" method="POST"
-                        class="flex items-center space-x-2">
-                        @csrf
-                        @method('PATCH')
 
-                        <input type="number" name="quantity" value="{{ $cartAmount }}" min="1"
-                            max="{{ $product->type === 'digital' ? 1 : 10 }}"
-                            class="w-10 rounded-md border px-2 py-1 text-sm">
+                @if ($product->deleted_at)
+                    <div class="text-sm font-semibold text-red-300 text-center">
+                        This is a deleted item. Please remove this from your wishlist.
+                    </div>
+                @endif
+                
+                @if (!$product->deleted_at)
+                    @if ($product->type != 'digital')
+                        <form action="{{ route('cart.update', $cartItemID) }}" method="POST"
+                            class="flex items-center space-x-2">
+                            @csrf
+                            @method('PATCH')
 
-                        <x-button class="bg-slate-600">Update</x-button>
-                    </form>
+                            <input type="number" name="quantity" value="{{ $cartAmount }}" min="1"
+                                max="{{ $product->type === 'digital' ? 1 : 10 }}"
+                                class="w-10 rounded-md border px-2 py-1 text-sm">
+
+                            <x-button class="bg-slate-600">Update</x-button>
+                        </form>
+                    @endif
+
+                    {{-- move back to WISHLIST --}}
+                    <div>
+                        <form action="{{ route('wishlist.store') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                            <input type="hidden" name="quantity" value="{{ $cartAmount }}">
+                            <x-button class="bg-slate-600">Add to Wishlist</x-button>
+                        </form>
+                    </div>
                 @endif
 
-                {{-- move back to WISHLIST --}}
-                <div>
-                    <form action="{{ route('wishlist.store') }}" method="POST">
-                        @csrf
-                        <input type="hidden" name="product_id" value="{{ $product->id }}">
-                        <input type="hidden" name="quantity" value="{{ $cartAmount }}">
-                        <x-button class="bg-slate-600">Add to Wishlist</x-button>
-                    </form>
-                </div>
 
                 {{-- Remover from cart --}}
                 <div>

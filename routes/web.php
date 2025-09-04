@@ -15,7 +15,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 
-Route::resource('product', ProductPageController::class)->only(['index', 'show']);
+// Route::resource('product', ProductPageController::class)->only(['index', 'show']);
+Route::get('product', [ProductPageController::class, 'index'])->name('product.index');
+Route::get('product/{id}', [ProductPageController::class, 'show'])->name('product.show');
 
 Route::middleware([
     'auth:sanctum',

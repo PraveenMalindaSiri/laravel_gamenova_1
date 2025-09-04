@@ -17,11 +17,13 @@ class CartController extends Controller
             ->where('user_id', Auth::id())
             ->get();
 
+        $hasDeleted = $carts->contains(fn($c) => !$c->product || $c->product->trashed()); // check if any game is trashed in the cart
+
         $totalPrice = $carts->sum(fn($c) => (float)$c->product->price * (int)$c->quantity);
         $games = $carts->count();
         $items = (int) $carts->sum('quantity');
 
-        return view('website.customer.cart', ['carts' => $carts, 'totalPrice' => $totalPrice, 'games' => $games, 'items' => $items]);
+        return view('website.customer.cart', ['carts' => $carts, 'totalPrice' => $totalPrice, 'games' => $games, 'items' => $items, 'hasDeleted' => $hasDeleted]);
     }
 
     public function store(Request $request)

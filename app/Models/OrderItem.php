@@ -33,6 +33,6 @@ class OrderItem extends Model
 
     public function product(): BelongsTo
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Product::class)->withTrashed(); // wont throw errors when loading daleted games
     }
 }
