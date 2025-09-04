@@ -35,6 +35,9 @@
                             <tr>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center">
                                     {{ $user->name }}
+                                    @if ($user->deleted_at)
+                                        <span class="text-xs text-red-800">- Banned</span>
+                                    @endif
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center">
@@ -46,16 +49,28 @@
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-center">
-                                    <a href="{{ route('users.show', $user) }}"
+                                    <a href="{{ route('users.show', $user->id) }}"
                                         class="text-indigo-600 hover:text-indigo-900 mb-2 mr-2">Details</a>
 
-                                    {{-- <form class="inline-block" action="{{ route('users.destroy', $user) }}"
-                                        method="POST" onsubmit="return confirm('Are you sure?');">
-                                        @csrf
-                                        @method('DELETE')
-                                        <input type="submit" class="text-red-600 hover:text-red-900 mb-2 mr-2"
-                                            value="Delete">
-                                    </form> --}}
+                                    @if ($user->trashed())
+                                        <form class="inline-block" action="{{ route('users.restore', $user->id) }}"
+                                            method="POST"
+                                            onsubmit="return confirm('Are you sure you want to restore this user?');">
+                                            @csrf
+                                            @method('PATCH')
+                                            <input type="submit" class="text-green-600 hover:text-green-900 mb-2 mr-2"
+                                                value="Restore">
+                                        </form>
+                                    @else
+                                        <form class="inline-block" action="{{ route('users.destroy', $user) }}"
+                                            method="POST"
+                                            onsubmit="return confirm('Are you sure you want to ban this user?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <input type="submit" class="text-red-600 hover:text-red-900 mb-2 mr-2"
+                                                value="Ban">
+                                        </form>
+                                    @endif
                                 </td>
                             </tr>
                         @empty
