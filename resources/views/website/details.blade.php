@@ -113,8 +113,13 @@
 
                 @if (Auth::user()->isSeller() && $product->seller_id === Auth::user()->id)
                     <div>
-                        <a href="{{ route('myproducts.edit', $product) }}"
-                            class="bg-slate-900 py-2 px-4 text-white rounded-md hover:bg-slate-600">Manage</a>
+                        @if (!$product->deleted_at)
+                            <a href="{{ route('myproducts.edit', $product) }}"
+                                class="bg-slate-900 py-2 px-4 text-white rounded-md hover:bg-slate-600">Manage</a>
+                        @else
+                            <a href="{{ route('myproducts.index') }}"
+                                class="bg-slate-900 py-2 px-4 text-white rounded-md hover:bg-slate-600">Manage</a>
+                        @endif
                     </div>
                 @endif
 

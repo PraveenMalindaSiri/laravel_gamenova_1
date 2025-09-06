@@ -26,7 +26,7 @@ Route::middleware([
 ])->group(function () {
 
     // Jetstream dashboard landing
-    Route::view('/dashboard', 'dashboard')->name('dashboard');
+    Route::redirect('/dashboard', '/')->name('dashboard');
 
     // Products (Admin + Seller)
     Route::middleware('role:admin,seller')->group(function () {
