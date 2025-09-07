@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Website;
 
 use App\Http\Controllers\Controller;
+use App\Models\OrderItem;
 use App\Models\Product;
+use App\Models\Review;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductPageController extends Controller
 {
@@ -17,7 +20,18 @@ class ProductPageController extends Controller
 
     public function show(String $id)
     {
-        $product = Product::withTrashed()->findOrFail($id); // can load trashed games details
-        return view('website.details', ['product' => $product]);
+        $product = Product::withTrashed()->findOrFail($id);
+
+        $userReview = null;
+        if (Auth::check()) {
+            $userReview = Review::where('product_id', (string) $product->id)
+                ->where('user_id', (string) Auth::id())
+                ->first();
+        }
+
+        $reviews = Review::where('product_id', (string) $product->id)
+            ->orderBy('_id', 'desc')->limit(20)->get();
+
+        return view('website.details', ['product' => $product, 'reviews' => $reviews, 'userReview' => $userReview]);
     }
 }
