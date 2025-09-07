@@ -67,7 +67,7 @@
                                     {{ $product->genre }}
                                 </td>
 
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-center">
                                     <a href="{{ route('product.show', $product) }}"
                                         class="text-indigo-600 hover:text-indigo-900 mb-2 mr-2">View</a>
 
@@ -82,6 +82,27 @@
                                             <input type="submit" class="text-red-600 hover:text-red-900 mb-2"
                                                 value="Delete">
                                         </form>
+
+                                        @if (Auth::user()->isAdmin())
+                                            <form class="inline-block ml-2"
+                                                action="{{ route('feature.update', $product) }}" method="POST">
+                                                @csrf
+                                                @method('PATCH')
+                                                @if ($product->featured)
+                                                    {{-- feature --}}
+                                                    <input type="hidden" name="featured" value="0">
+                                                    <input type="submit"
+                                                        class="text-yellow-700 hover:text-yellow-900 mb-2"
+                                                        value="Unfeature">
+                                                @else
+                                                    {{-- unfeature --}}
+                                                    <input type="hidden" name="featured" value="1">
+                                                    <input type="submit"
+                                                        class="text-green-600 hover:text-green-900 mb-2"
+                                                        value="Feature">
+                                                @endif
+                                            </form>
+                                        @endif
                                     @else
                                         <form class="inline-block" action="{{ route('myproducts.restore', $product) }}"
                                             method="POST" onsubmit="return confirm('Are you sure?');">
@@ -91,24 +112,6 @@
                                                 value="ACTIVATE">
                                         </form>
                                     @endif
-
-                                    @if (Auth::user()->isAdmin())
-                                        <form class="inline-block ml-2"
-                                            action="{{ route('feature.update', $product) }}" method="POST">
-                                            @csrf
-                                            @method('PATCH')
-                                            @if ($product->featured)
-                                                <input type="hidden" name="featured" value="0">
-                                                <input type="submit" class="text-yellow-700 hover:text-yellow-900 mb-2"
-                                                    value="Unfeature">
-                                            @else
-                                                <input type="hidden" name="featured" value="1">
-                                                <input type="submit" class="text-green-600 hover:text-green-900 mb-2"
-                                                    value="Feature">
-                                            @endif
-                                        </form>
-                                    @endif
-
                                 </td>
                             </tr>
                         @empty

@@ -13,9 +13,8 @@
                 <img src="{{ asset('assets/images/loginimg.png') }}" alt="{{ $product->title }}"
                     class="w-full aspect-video object-cover rounded-xl shadow">
 
-                {{-- <img src="{{ $product->image_url }}"
-                 alt="{{ $product->title }}"
-                 class="w-full aspect-video object-cover rounded-xl shadow"> --}}
+                {{-- <img src="{{ $product->image_url }}" alt="{{ $product->title }}"
+                    class="w-full aspect-video object-cover rounded-xl shadow"> --}}
             </div>
 
             {{-- DETAILS --}}

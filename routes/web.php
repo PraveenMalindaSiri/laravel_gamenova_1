@@ -43,7 +43,7 @@ Route::middleware([
 
     // Users (Admin only)
     Route::middleware('role:admin')->group(function () {
-        Route::resource('users', UserController::class)->only(['index', 'destroy']);
+        Route::resource('users', UserController::class)->only(['index', 'destroy', 'edit', 'update']);
         Route::get('users/{user}', [UserController::class, 'show'])->withTrashed()->name('users.show');
         Route::patch('users/{id}/restore', [UserController::class, 'restore'])->name('users.restore');
         Route::resource('feature', FeaturingController::class)->parameters(['feature' => 'product'])->only('update');

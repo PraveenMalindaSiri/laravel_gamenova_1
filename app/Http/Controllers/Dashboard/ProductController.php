@@ -112,6 +112,10 @@ class ProductController extends Controller
     {
         Gate::authorize('delete', $product);
 
+        if ($product->featured) {
+            return redirect()->route('myproducts.index')->with('error', 'This Game is featured. Unfeature it before Delete!!!');
+        }
+
         $product->delete();
 
         return back()->with('success', 'Product deleted');

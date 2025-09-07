@@ -62,14 +62,21 @@
                                                 value="Restore">
                                         </form>
                                     @else
-                                        <form class="inline-block" action="{{ route('users.destroy', $user) }}"
-                                            method="POST"
-                                            onsubmit="return confirm('Are you sure you want to ban this user?');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <input type="submit" class="text-red-600 hover:text-red-900 mb-2 mr-2"
-                                                value="Ban">
-                                        </form>
+                                        @if (!$user->isAdmin())
+                                            {{-- Change pass --}}
+                                            <a href="{{ route('users.edit', $user) }}"
+                                                class="text-indigo-600 hover:text-indigo-900 mb-2 mr-2">Manage</a>
+
+                                            {{-- Ban --}}
+                                            <form class="inline-block" action="{{ route('users.destroy', $user) }}"
+                                                method="POST"
+                                                onsubmit="return confirm('Are you sure you want to ban this user?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <input type="submit" class="text-red-600 hover:text-red-900 mb-2 mr-2"
+                                                    value="Ban">
+                                            </form>
+                                        @endif
                                     @endif
                                 </td>
                             </tr>
