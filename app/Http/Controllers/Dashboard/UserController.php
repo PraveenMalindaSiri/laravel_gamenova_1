@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use Illuminate\Validation\Rules\Password;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateUserPasswordRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -36,16 +37,13 @@ class UserController extends Controller
         return view('dashboard.admin.update', ['user' => $user]);
     }
 
-    public function update(Request $request, User $user)
+    public function update(UpdateUserPasswordRequest $request, User $user)
     {
         if ($user->trashed()) {
             return redirect()->route('users.index')->with('error', 'User is banned!!!.');
         }
 
-        $validated = $request->validate([
-            'password' => ['required', 'confirmed', Password::defaults()],
-            'admin_password' => ['required']
-        ]);
+        $validated = $request->validated();
 
         if (! Hash::check($validated['admin_password'], Auth::user()->password)) {
             abort(403, 'Admin Password is wrong!!!');

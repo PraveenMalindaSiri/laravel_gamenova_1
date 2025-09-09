@@ -65,7 +65,7 @@
                                         @if (!$user->isAdmin())
                                             {{-- Change pass --}}
                                             <a href="{{ route('users.edit', $user) }}"
-                                                class="text-indigo-600 hover:text-indigo-900 mb-2 mr-2">Manage</a>
+                                                class="text-green-600 hover:text-green-900 mb-2 mr-2">Manage</a>
 
                                             {{-- Ban --}}
                                             <form class="inline-block" action="{{ route('users.destroy', $user) }}"
