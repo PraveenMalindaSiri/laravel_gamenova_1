@@ -110,7 +110,7 @@
         {{-- Date of Birth --}}
         <div class="col-span-6 sm:col-span-4">
             <x-label for="dob" value="{{ __('Date of Birth') }}" />
-            <x-input id="dob" type="date" class="mt-1 block w-full" wire:model="state.dob"
+            <x-input id="dob" type="date" lang="en-GB" class="mt-1 block w-full" wire:model="state.dob"
                 autocomplete="bday" />
             <x-input-error for="dob" class="mt-2" />
         </div>

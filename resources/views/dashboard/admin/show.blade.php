@@ -35,7 +35,7 @@
                         <!-- Email -->
                         <div class="col-span-2">
                             <x-label for="email" value="{{ __('Email') }}" />
-                            <div class="mt-1 block w-full px-3 py-2  border border-gray-300 rounded-md text-gray-900">
+                            <div class="user-view">
                                 {{ $user->email }}
                             </div>
                         </div>
@@ -43,7 +43,7 @@
                         <!-- Role -->
                         <div>
                             <x-label for="role" value="{{ __('Role') }}" />
-                            <div class="mt-1 block w-full px-3 py-2  border border-gray-300 rounded-md text-gray-900">
+                            <div class="user-view">
                                 {{ ucfirst($user->role) }}
                             </div>
                         </div>
@@ -51,15 +51,15 @@
                         <!-- Dob -->
                         <div>
                             <x-label for="dob" value="{{ __('Date of Birth') }}" />
-                            <div class="mt-1 block w-full px-3 py-2  border border-gray-300 rounded-md text-gray-900">
-                                {{ ucfirst($user->dob ?? 'Not provided') }}
+                            <div class="user-view">
+                                {{ ucfirst($user->dob->format('M j, Y') ?? 'Not provided') }}
                             </div>
                         </div>
 
                         <!-- Address -->
                         <div>
                             <x-label for="address" value="{{ __('Address') }}" />
-                            <div class="mt-1 block w-full px-3 py-2  border border-gray-300 rounded-md text-gray-900">
+                            <div class="user-view">
                                 {{ ucfirst($user->address ?? 'Not provided') }}
                             </div>
                         </div>
@@ -67,7 +67,7 @@
                         <!-- Phone -->
                         <div>
                             <x-label for="phone" value="{{ __('Phone no.') }}" />
-                            <div class="mt-1 block w-full px-3 py-2  border border-gray-300 rounded-md text-gray-900">
+                            <div class="user-view">
                                 {{ ucfirst($user->phone ?? 'Not provided') }}
                             </div>
                         </div>
@@ -103,7 +103,7 @@
                                         Activated
                                     </span>
                                     <span class="ml-2 text-sm">
-                                        {{ $user->two_factor_confirmed_at->format('M j, Y g:i A') }}
+                                        {{ $user->two_factor_confirmed_at }}
                                     </span>
                                 @else
                                     <span

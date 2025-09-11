@@ -24,7 +24,7 @@ return new class extends Migration
             $table->enum('role', ['customer', 'seller', 'admin'])->default('customer');
             $table->string('phone')->nullable();
             $table->string('address')->nullable();
-            $table->dateTime('dob')->nullable();
+            $table->date('dob')->nullable();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

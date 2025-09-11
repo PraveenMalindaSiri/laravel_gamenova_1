@@ -36,8 +36,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'dob',
         'role',
         'phone',
-        'role'
-
     ];
 
     public static array $roles = ['Customer', 'Seller'];
@@ -98,7 +96,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
-            'dob' => 'date',
+            'dob' => 'date:Y-m-d',
         ];
     }
 }
