@@ -73,7 +73,7 @@
 
                                     @if (!$product->deleted_at)
                                         <a href="{{ route('myproducts.edit', $product) }}"
-                                            class="text-indigo-600 hover:text-indigo-900 mb-2 mr-2">Edit</a>
+                                            class="text-yellow-600 hover:text-yellow-900 mb-2 mr-2">Edit</a>
 
                                         <form class="inline-block" action="{{ route('myproducts.destroy', $product) }}"
                                             method="POST" onsubmit="return confirm('Are you sure?');">

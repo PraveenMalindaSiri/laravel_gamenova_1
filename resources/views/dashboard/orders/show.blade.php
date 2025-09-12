@@ -27,7 +27,8 @@
                                 class="w-1/5 px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Digital Code - Digital Editions ONLY
                             </th>
-                            <th scope="col" width="200" class="w-1/5 px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th scope="col" width="200"
+                                class="w-1/5 px-6 py-3 bg-gray-50 text-xs font-medium text-gray-500 uppercase tracking-wider text-center">
                                 Actions
                             </th>
                         </tr>
@@ -57,9 +58,15 @@
                                     {{ $order->digitalcode ?? '---' }}
                                 </td>
 
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-center">
                                     <a href="{{ route('product.show', $order->product) }}"
                                         class="text-indigo-600 hover:text-indigo-900 mb-2 mr-2">View Product</a>
+                                    @if (Auth::user()->isCustomer())
+                                        <a href="{{ route('orders.reviews.edit', ['order' => $order->order_id, 'product' => $order->product_id]) }}"
+                                            class="text-green-600 hover:text-green-900 mb-2 mr-2">
+                                            Reviwe
+                                        </a>
+                                    @endif
                                 </td>
                             </tr>
                         @empty

@@ -31,7 +31,7 @@ Route::middleware([
 
     // Products (Admin + Seller)
     Route::middleware('role:admin,seller')->group(function () {
-        Route::resource('myproducts', ProductController::class)->parameters(['myproducts' => 'product'])->except('show');
+        Route::resource('myproducts', ProductController::class)->parameters(['myproducts' => 'product'])->except('show', 'store');
         Route::resource('revenue', RevenueController::class)->only(['index']);
         Route::patch('myproducts/{product}/restore', [ProductController::class, 'restore'])
             ->name('myproducts.restore');
@@ -58,5 +58,6 @@ Route::middleware([
         Route::get('/payment', fn() => view('website.customer.payment'))->name('payment.page');
         Route::post('/products/{product}/reviews', [ReviewController::class, 'store'])->name('reviews.store');
         Route::delete('/products/{product}/reviews/{id}', [ReviewController::class, 'destroy'])->name('reviews.delete');
+        Route::get('/orders/{order}/products/{product}/reviews/edit', [ReviewController::class, 'edit'])->name('orders.reviews.edit');
     });
 });

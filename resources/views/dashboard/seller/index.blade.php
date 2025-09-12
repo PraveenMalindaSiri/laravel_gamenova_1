@@ -61,7 +61,7 @@
 
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-center">
                                     <a href="{{ route('product.show', $revenue->product) }}"
-                                        class="text-indigo-600 hover:text-indigo-900 mb-2 mr-2">View</a>
+                                        class="text-indigo-600 hover:text-indigo-900 mb-2 mr-2">View Product</a>
                                 </td>
                             </tr>
                         @empty

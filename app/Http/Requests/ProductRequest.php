@@ -43,13 +43,13 @@ class ProductRequest extends FormRequest
             'description' => ['required', 'string', 'max:2000'],
 
             'duration' => [
-                'nullable',
+                'required',
                 'string',
                 'max:20',
                 'regex:/^\d{1,3}h(?:\s?\d{1,2}m)?$/i',
             ],
 
-            'company' => ['nullable', 'string', 'max:120'],
+            'company' => ['required', 'string', 'max:120'],
 
             'price' => [
                 'required',
