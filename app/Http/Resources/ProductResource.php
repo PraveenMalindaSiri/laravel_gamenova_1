@@ -30,6 +30,8 @@ class ProductResource extends JsonResource
             'image_url'   => $this->product_photo_path,
             'seller_id'   => $this->seller_id,
             'created_at'  => $this->created_at->toDateString(),
+            'deleted_at' => $this->deleted_at,
+            'featured' => $this->featured
         ];
     }
 }

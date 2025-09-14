@@ -21,6 +21,7 @@ class AuthController extends Controller
                     'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
                     'role' => ['required', 'in:' . implode(',', User::$roles)], // in:seller,customer
                     'password' => ['required', 'confirmed', Password::min(8)],
+                    'dob'     => ['nullable', 'date', 'before:today'],
                 ]
             );
 
@@ -29,13 +30,16 @@ class AuthController extends Controller
                 'email' => $data['email'],
                 'role' => $data['role'],
                 'password' => Hash::make($data['password']),
+                'dob'     => $data['dob'] ?? null,
             ]);
 
             $token = $user->createToken('mobile')->plainTextToken;
 
+            $userArray = $user->toArray();
+            $userArray['token'] = $token;
+
             return response()->json([
-                'user'  => $user,
-                'token' => $token,
+                'user'  => $userArray,
             ], 201);
         } catch (AuthorizationException | ValidationException $e) {
             throw $e;
@@ -62,10 +66,11 @@ class AuthController extends Controller
             }
 
             $token = $user->createToken('mobile')->plainTextToken;
+            $userArray = $user->toArray();
+            $userArray['token'] = $token;
 
             return response()->json([
-                'user'  => $user,
-                'token' => $token,
+                'user'  => $userArray,
             ], 201);
         } catch (AuthorizationException | ValidationException $e) {
             throw $e;
