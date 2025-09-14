@@ -7,16 +7,9 @@ use App\Models\User;
 
 class ProductPolicy
 {
-    // (Optional) Let admins do everything:
-    public function before(User $user, string $ability): ?bool
-    {
-        if ($user->isAdmin()) return true;
-        return null;
-    }
-
     public function viewAny(User $user): bool
     {
-        return $user->isSeller();
+        return $user->isSeller() || $user->isAdmin();
     }
 
     public function view(User $user, Product $product): bool

@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateUserPasswordRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -17,6 +18,8 @@ class UserController extends Controller
      */
     public function index()
     {
+        Gate::authorize('access-admin');
+
         $users = User::withTrashed()->get();
         return view('dashboard.admin.index', ['users' => $users]);
     }
@@ -26,11 +29,15 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
+        Gate::authorize('access-admin');
+
         return view('dashboard.admin.show', ['user' => $user]);
     }
 
     public function edit(User $user)
     {
+        Gate::authorize('access-admin');
+
         if ($user->trashed()) {
             return redirect()->route('users.index')->with('error', 'User is banned!!!.');
         }
@@ -39,6 +46,8 @@ class UserController extends Controller
 
     public function update(UpdateUserPasswordRequest $request, User $user)
     {
+        Gate::authorize('access-admin');
+
         if ($user->trashed()) {
             return redirect()->route('users.index')->with('error', 'User is banned!!!.');
         }
@@ -65,9 +74,7 @@ class UserController extends Controller
         /** @var \App\Models\User $user */
         $actor = $request->user();
 
-        if (!$actor->isAdmin()) {
-            abort(403, 'Only admins can deactivate users.');
-        }
+        Gate::authorize('access-admin');
 
         if ($user->isAdmin()) {
             abort(403, 'You cannot deactivate an admin.');
@@ -80,9 +87,8 @@ class UserController extends Controller
 
     public function restore(String $id, Request $request)
     {
-        if (Auth::user()->role !== 'admin') {
-            abort(403);
-        }
+        Gate::authorize('access-admin');
+
         $user = User::withTrashed()->findOrFail($id);
         $user->restore();
         return redirect()->back()->with('success', 'User restored.');
