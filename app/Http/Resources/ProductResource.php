@@ -24,7 +24,7 @@ class ProductResource extends JsonResource
             'company'     => $this->company,
             'released_at' => $this->released_date?->format('Y-m-d'),
             'size'        => $this->size . ' GB',
-            'duration'    => $this->$this->duration,
+            'duration'    => $this->duration,
             'age_rating'  => $this->age_rating . '+',
             'description' => $this->description,
             'image_url'   => $this->product_photo_path,

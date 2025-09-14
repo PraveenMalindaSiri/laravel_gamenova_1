@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class ProductsScreenController extends Controller
 {
@@ -14,9 +16,18 @@ class ProductsScreenController extends Controller
      */
     public function index()
     {
-        $filters = request()->only('search', 'min_price', 'max_price', 'type', 'genre', 'platform');
-        $products = Product::filter($filters)->paginate(15)->withQueryString();
+        try {
+            $filters = request()->only('search', 'min_price', 'max_price', 'type', 'genre', 'platform');
+            $products = Product::filter($filters)->paginate(15)->withQueryString();
 
-        return ProductResource::collection($products);
+            return ProductResource::collection($products);
+        } catch (AuthorizationException | ValidationException $e) {
+            throw $e;
+        } catch (\Throwable $e) {
+            return response()->json([
+                'message' => 'Something went wrong',
+                'error'   => $e->getMessage()
+            ], 500);
+        }
     }
 }

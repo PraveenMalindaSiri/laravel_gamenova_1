@@ -38,7 +38,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'phone',
     ];
 
-    public static array $roles = ['Customer', 'Seller'];
+    public static array $roles = ['customer', 'seller'];
 
     // A seller owns many products
     public function products(): HasMany
