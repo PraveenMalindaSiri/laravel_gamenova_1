@@ -51,9 +51,15 @@
                         <!-- Dob -->
                         <div>
                             <x-label for="dob" value="{{ __('Date of Birth') }}" />
-                            <div class="user-view">
-                                {{ ucfirst($user->dob->format('M j, Y') ?? 'Not provided') }}
-                            </div>
+                            @if ($user->dob)
+                                <div class="user-view">
+                                    {{ ucfirst($user->dob->format('M j, Y')) }}
+                                </div>
+                            @else
+                                <div class="user-view">
+                                    {{ 'Not provided' }}
+                                </div>
+                            @endif
                         </div>
 
                         <!-- Address -->
