@@ -18,7 +18,7 @@ class ProductsScreenController extends Controller
     {
         try {
             $filters = request()->only('search', 'min_price', 'max_price', 'type', 'genre', 'platform');
-            $products = Product::filter($filters)->paginate(15)->withQueryString();
+            $products = Product::filter($filters)->orderBy('title', 'asc')->get();
 
             return ProductResource::collection($products);
         } catch (AuthorizationException | ValidationException $e) {

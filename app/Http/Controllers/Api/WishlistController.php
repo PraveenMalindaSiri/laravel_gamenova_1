@@ -72,14 +72,12 @@ class WishlistController extends Controller
                 ]
             );
 
-            return response()->json([
-                'message' => 'Added to wishlist',
-                'data'    => [
-                    'id'         => $wishlist->id,
-                    'product_id' => $wishlist->product_id,
-                    'quantity'   => $wishlist->quantity,
-                ],
-            ], 201);
+            $wishlist->load('product');
+
+            return WishlistResource::make($wishlist)
+                ->additional(['message' => 'Added to wishlist'])
+                ->response()
+                ->setStatusCode(201);
         } catch (AuthorizationException | ValidationException $e) {
             throw $e;
         } catch (\Throwable $th) {
@@ -121,14 +119,12 @@ class WishlistController extends Controller
 
             $wishlist->update(['quantity' => $qty]);
 
-            return response()->json([
-                'message' => 'Wishlist updated',
-                'data'    => [
-                    'id'         => $wishlist->id,
-                    'product_id' => $wishlist->product_id,
-                    'quantity'   => $wishlist->quantity,
-                ],
-            ], 200);
+            $wishlist->load('product');
+
+            return WishlistResource::make($wishlist)
+                ->additional(['message' => 'Wishlist updated'])
+                ->response()
+                ->setStatusCode(200);
         } catch (AuthorizationException | ValidationException $e) {
             throw $e;
         } catch (\Throwable $e) {

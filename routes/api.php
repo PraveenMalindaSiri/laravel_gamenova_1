@@ -16,16 +16,15 @@ Route::get('/user', function (Request $request) {
 Route::post('/register', [AuthController::class, 'register'])->name('api.register');
 Route::post('/login',    [AuthController::class, 'login'])->name('api.login');
 
+// home and products
+Route::get('/home', [HomeScreenController::class, 'index']);
+Route::get('/products', [ProductsScreenController::class, 'index']);
 
 Route::get('/products', [ProductsScreenController::class, 'index']);
 Route::middleware(['auth:sanctum'])->as('api.')->group(function () {
 
     // logout
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
-    // home and products
-    Route::get('/home', [HomeScreenController::class, 'index']);
-    Route::get('/products', [ProductsScreenController::class, 'index']);
 
     // customer feature
     Route::middleware('role:customer')->group(function () {

@@ -72,14 +72,12 @@ class CartController extends Controller
                 ]
             );
 
-            return response()->json([
-                'message' => 'Added to cart',
-                'data'    => [
-                    'id'         => $cart->id,
-                    'product_id' => $cart->product_id,
-                    'quantity'   => $cart->quantity,
-                ],
-            ], 201);
+            $cart->load('product');
+
+            return CartResourec::make($cart)
+                ->additional(['message' => 'Added to Cart'])
+                ->response()
+                ->setStatusCode(200);
         } catch (AuthorizationException | ValidationException $e) {
             throw $e;
         } catch (\Throwable $th) {
@@ -120,15 +118,12 @@ class CartController extends Controller
             }
 
             $cart->update(['quantity' => $qty]);
+            $cart->load('product');
 
-            return response()->json([
-                'message' => 'Cart updated',
-                'data'    => [
-                    'id'         => $cart->id,
-                    'product_id' => $cart->product_id,
-                    'quantity'   => $cart->quantity,
-                ],
-            ], 200);
+            return CartResourec::make($cart)
+                ->additional(['message' => 'Wishlist updated'])
+                ->response()
+                ->setStatusCode(200);
         } catch (AuthorizationException | ValidationException $e) {
             throw $e;
         } catch (\Throwable $e) {
