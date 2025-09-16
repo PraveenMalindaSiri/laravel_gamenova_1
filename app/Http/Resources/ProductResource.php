@@ -4,6 +4,8 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use PhpParser\Node\Expr\Cast\Double;
+use Ramsey\Uuid\Type\Decimal;
 
 class ProductResource extends JsonResource
 {
@@ -22,15 +24,15 @@ class ProductResource extends JsonResource
             'platform'    => ucfirst($this->platform),
             'price'       => (float) $this->price,
             'company'     => $this->company,
-            'released_at' => $this->released_date?->format('Y-m-d'),
-            'size'        => $this->size . ' GB',
+            'released_date' => $this->released_date?->format('Y-m-d'),
+            'size'        => (Double) $this->size,
             'duration'    => $this->duration,
-            'age_rating'  => $this->age_rating . '+',
+            'age_rating'  => (int) $this->age_rating,
             'description' => $this->description,
             'image_url'   => $this->product_photo_path,
             'seller_id'   => $this->seller_id,
             'created_at'  => $this->created_at->toDateString(),
-            'deleted_at' => $this->deleted_at,
+            'deleted_at' => $this->deleted_at?->toDateString(),
             'featured' => $this->featured
         ];
     }
