@@ -20,7 +20,7 @@ Route::post('/login',    [AuthController::class, 'login'])->name('api.login');
 Route::get('/home', [HomeScreenController::class, 'index']);
 Route::get('/products', [ProductsScreenController::class, 'index']);
 
-Route::get('/products', [ProductsScreenController::class, 'index']);
+Route::get('/products/{id}', [ProductsScreenController::class, 'show']);
 Route::middleware(['auth:sanctum'])->as('api.')->group(function () {
 
     // logout

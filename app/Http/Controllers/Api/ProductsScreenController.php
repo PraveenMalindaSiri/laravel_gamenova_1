@@ -30,4 +30,11 @@ class ProductsScreenController extends Controller
             ], 500);
         }
     }
+
+    public function show(String $id)
+    {
+        $product = Product::withTrashed()->findOrFail($id);
+
+        return ProductResource::make($product);
+    }
 }
