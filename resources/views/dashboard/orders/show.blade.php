@@ -61,10 +61,10 @@
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-center">
                                     <a href="{{ route('product.show', $order->product) }}"
                                         class="text-indigo-600 hover:text-indigo-900 mb-2 mr-2">View Product</a>
-                                    @if (Auth::user()->isCustomer())
+                                    @if (Auth::user()->isCustomer() && !$order->product->deleted_at)
                                         <a href="{{ route('orders.reviews.edit', ['order' => $order->order_id, 'product' => $order->product_id]) }}"
                                             class="text-green-600 hover:text-green-900 mb-2 mr-2">
-                                            Reviwe
+                                            Review
                                         </a>
                                     @endif
                                 </td>

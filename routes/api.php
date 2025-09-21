@@ -29,6 +29,7 @@ Route::middleware(['auth:sanctum'])->as('api.')->group(function () {
     // customer feature
     Route::middleware('role:customer')->group(function () {
         Route::apiResource('cart', CartController::class)->only(['index', 'store', 'destroy', 'update']);
+        Route::post('cart/success', [CartController::class,  'payment']);
         Route::apiResource('wishlist', WishlistController::class)->only(['index', 'store', 'destroy', 'update']);
     });
 

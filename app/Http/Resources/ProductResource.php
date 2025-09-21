@@ -25,7 +25,7 @@ class ProductResource extends JsonResource
             'price'       => (float) $this->price,
             'company'     => $this->company,
             'released_date' => $this->released_date?->format('Y-m-d'),
-            'size'        => (Double) $this->size,
+            'size'        => (float) $this->size,
             'duration'    => $this->duration,
             'age_rating'  => (int) $this->age_rating,
             'description' => $this->description,
@@ -33,7 +33,7 @@ class ProductResource extends JsonResource
             'seller_id'   => $this->seller_id,
             'created_at'  => $this->created_at->toDateString(),
             'deleted_at' => $this->deleted_at?->toDateString(),
-            'featured' => $this->featured
+            'featured' => (bool) $this->featured
         ];
     }
 }

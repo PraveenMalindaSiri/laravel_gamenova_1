@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\CartResourec;
 use App\Models\Cart;
 use App\Models\Product;
+use App\Services\OrderService;
 use Carbon\Carbon;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
@@ -147,6 +148,26 @@ class CartController extends Controller
             $cart->delete();
 
             return response()->json(['message' => 'Item deleted from the cart'], 200);
+        } catch (AuthorizationException | ValidationException $e) {
+            throw $e;
+        } catch (\Throwable $e) {
+            return response()->json([
+                'message' => 'Something went wrong',
+                'error'   => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function payment(Request $request, OrderService $orderService)
+    {
+
+        try {
+            $order = $orderService->createFromCart(Auth::user()->id);
+
+            return response()->json([
+                'message' => 'Order created successfully',
+                'order_id' => $order->id,
+            ], 201);
         } catch (AuthorizationException | ValidationException $e) {
             throw $e;
         } catch (\Throwable $e) {
