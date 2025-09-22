@@ -30,6 +30,7 @@ Route::middleware(['auth:sanctum'])->as('api.')->group(function () {
     Route::middleware('role:customer')->group(function () {
         Route::apiResource('cart', CartController::class)->only(['index', 'store', 'destroy', 'update']);
         Route::post('cart/success', [CartController::class,  'payment']);
+        Route::post('cart/sync', [CartController::class,  'sync']);
         Route::apiResource('wishlist', WishlistController::class)->only(['index', 'store', 'destroy', 'update']);
     });
 

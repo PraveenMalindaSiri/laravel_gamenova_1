@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\CartResourec;
 use App\Models\Cart;
 use App\Models\Product;
+use App\Services\CartSyncService;
 use App\Services\OrderService;
 use Carbon\Carbon;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -167,6 +168,24 @@ class CartController extends Controller
             return response()->json([
                 'message' => 'Order created successfully',
                 'order_id' => $order->id,
+            ], 201);
+        } catch (AuthorizationException | ValidationException $e) {
+            throw $e;
+        } catch (\Throwable $e) {
+            return response()->json([
+                'message' => 'Something went wrong',
+                'error'   => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function sync(Request $request, CartSyncService $cartSyncService)
+    {
+        try {
+            $cartSyncService->syncing(Auth::user()->id, $request->all());
+
+            return response()->json([
+                'message' => 'Cart synced successfully',
             ], 201);
         } catch (AuthorizationException | ValidationException $e) {
             throw $e;
