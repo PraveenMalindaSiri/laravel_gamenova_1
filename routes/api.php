@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CartController;
+use App\Http\Controllers\Api\Dashboard\OrdersController;
 use App\Http\Controllers\Api\Dashboard\ProductController;
 use App\Http\Controllers\Api\HomeScreenController;
 use App\Http\Controllers\Api\ProductsScreenController;
@@ -31,6 +32,7 @@ Route::middleware(['auth:sanctum'])->as('api.')->group(function () {
         Route::apiResource('cart', CartController::class)->only(['index', 'store', 'destroy', 'update']);
         Route::post('cart/success', [CartController::class,  'payment']);
         Route::post('cart/sync', [CartController::class,  'sync']);
+        Route::get('orders/items/{id}', [OrdersController::class,  'show']);
         Route::apiResource('wishlist', WishlistController::class)->only(['index', 'store', 'destroy', 'update']);
     });
 
