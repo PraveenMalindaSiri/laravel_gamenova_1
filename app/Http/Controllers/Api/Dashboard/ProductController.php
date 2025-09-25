@@ -46,12 +46,11 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
+        Gate::authorize('create', Product::class);
+
+        $data = $request->validated();
+        $data['seller_id'] = Auth::user()->id;
         try {
-            Gate::authorize('create', Product::class);
-
-            $data = $request->validated();
-            $data['seller_id'] = Auth::user()->id;
-
             if ($request->hasFile('product_photo')) {
                 $data['product_photo_path'] = $this->buildStoredPath($request->file('product_photo'));
             }
@@ -77,19 +76,18 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
+        Gate::authorize('update', $product);
+        if ($product->trashed()) {
+            return response()->json([
+                'message' => "Can't update a deleted item",
+            ], 403);
+        }
+        $data   = $request->validated();
+        $disk   = 's3';
+        $old    = $product->product_photo_path;
+        $new    = null;
+
         try {
-            Gate::authorize('update', $product);
-            if ($product->trashed()) {
-                return response()->json([
-                    'message' => "Can't update a deleted item",
-                ], 403);
-            }
-
-            $data   = $request->validated();
-            $disk   = 's3';
-            $old    = $product->product_photo_path;
-            $new    = null;
-
             if ($request->hasFile('product_photo')) {
                 $new = $this->buildStoredPath($request->file('product_photo'), 'products', $disk);
                 $data['product_photo_path'] = $new;
@@ -119,9 +117,8 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        Gate::authorize('delete', $product);
         try {
-            Gate::authorize('delete', $product);
-
             $product->delete();
 
             return response()->json(['message' => 'Product deleted'], 200);
@@ -137,15 +134,13 @@ class ProductController extends Controller
 
     public function restore(string $product)
     {
+        $product = Product::withTrashed()->findOrFail($product);
+        Gate::authorize('restore', $product);
+        if (!$product->trashed()) {
+            return response()->json(['message' => 'Not a deleted product'], 403);
+        }
         try {
-            $product = Product::withTrashed()->findOrFail($product);
-            Gate::authorize('restore', $product);
-
-            if ($product->trashed()) {
-                $product->restore();
-            } else {
-                return response()->json(['message' => 'Not a deleted product'], 403);
-            }
+            $product->restore();
 
             return (new ProductResource($product))
                 ->additional(['message' => 'Product restored'])
