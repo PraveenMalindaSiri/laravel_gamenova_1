@@ -11,11 +11,11 @@
             {{-- IMAGE --}}
 
             <div class="w-full lg:w-1/2">
-                <img src="{{ asset('assets/images/loginimg.png') }}" alt="{{ $product->title }}"
-                    class="w-full aspect-video object-cover rounded-xl shadow">
-
-                {{-- <img src="{{ $product->image_url }}" alt="{{ $product->title }}"
+                {{-- <img src="{{ asset('assets/images/loginimg.png') }}" alt="{{ $product->title }}"
                     class="w-full aspect-video object-cover rounded-xl shadow"> --}}
+
+                <img src="{{ $product->image_url }}" alt="{{ $product->title }}"
+                    class="w-full aspect-video object-cover rounded-xl shadow">
             </div>
 
             {{-- DETAILS --}}
@@ -87,7 +87,8 @@
                                     <input type="hidden" name="quantity" value="1">
                                 @endif
 
-                                <button type="submit" class="rounded-lg bg-slate-900 px-4 py-2 text-white hover:bg-slate-600  transition duration-300">
+                                <button type="submit"
+                                    class="rounded-lg bg-slate-900 px-4 py-2 text-white hover:bg-slate-600  transition duration-300">
                                     Add to Cart
                                 </button>
 
@@ -104,7 +105,8 @@
                         <p class="text-red-700">
                             Please Log in as a customer to purchase this product.
                         </p>
-                        <a href="{{ route('login') }}" class="rounded-md py-1 px-2 text-white bg-slate-900 hover:bg-slate-600 transition duration-300">
+                        <a href="{{ route('login') }}"
+                            class="rounded-md py-1 px-2 text-white bg-slate-900 hover:bg-slate-600 transition duration-300">
                             Log in
                         </a>
                     </div>
@@ -112,13 +114,14 @@
 
                 @auth
                     @if (Auth::user()->isCustomer() && !Auth::user()->dob)
-                        <div class="flex space-x-3 items-center">
+                        <div class="flex-row space-x-3 items-center">
                             <p class="mb-2 text-red-700">
                                 Your date of birth is missing from your profile. Please update it to continue using all
                                 features.
                             </p>
                             <a href="{{ route('profile.show') }}"
-                                class="bg-slate-900 py-1 px-2 text-white rounded-md hover:bg-slate-600 transition duration-300">Update ›
+                                class="bg-slate-900 py-1 px-2 text-white rounded-md hover:bg-slate-600 transition duration-300">
+                                Update ›
                             </a>
                         </div>
                     @endif

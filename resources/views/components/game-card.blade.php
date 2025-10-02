@@ -2,12 +2,12 @@
     class="rounded-2xl border border-slate-800/20 p-6 shadow-2xl mb-8 bg-gradient-to-br from-slate-900 via-slate-700 to-slate-900 hover:shadow-cyan-500/25 transition-all duration-500 transform hover:-translate-y-1 overflow-hidden">
     <div class="grid grid-cols-7 items-center gap-6">
         <div class="col-span-2">
-            <img src="{{ asset('assets/images/loginimg.png') }}" alt="{{ $product->title }}"
-                class="w-68 h-48 object-cover rounded-md shadow border-2 border-slate-400">
+            {{-- <img src="{{ asset('assets/images/loginimg.png') }}" alt="{{ $product->title }}"
+                class="w-68 h-48 object-cover rounded-md shadow border-2 border-slate-400"> --}}
 
-            {{-- <img src="{{ $product->image_url }}"
+            <img src="{{ $product->image_url }}"
                  alt="{{ $product->title }}"
-                 class="w-68 h-48 object-cover rounded-md shadow border-2 border-slate-400"> --}}
+                 class="w-68 h-48 object-cover rounded-md shadow border-2 border-slate-400">
         </div>
 
         <div class="text-sm font-semibold">
@@ -107,7 +107,7 @@
                         This is a deleted item. Please remove this from your wishlist.
                     </div>
                 @endif
-                
+
                 @if (!$product->deleted_at)
                     @if ($product->type != 'digital')
                         <form action="{{ route('cart.update', $cartItemID) }}" method="POST"

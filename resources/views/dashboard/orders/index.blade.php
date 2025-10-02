@@ -12,19 +12,24 @@
                 <table class="min-w-full divide-y divide-gray-200 w-full table-fixed">
                     <thead>
                         <tr>
-                            <th scope="col" class="w-1/5 px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th scope="col"
+                                class="w-1/5 px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Order
                             </th>
-                            <th scope="col" class="w-1/5 px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th scope="col"
+                                class="w-1/5 px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 User
                             </th>
-                            <th scope="col" class="w-1/5 px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th scope="col"
+                                class="w-1/5 px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Total Price
                             </th>
-                            <th scope="col" class="w-1/5 px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th scope="col"
+                                class="w-1/5 px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Order Date
                             </th>
-                            <th scope="col" class="w-1/5 px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th scope="col"
+                                class="w-1/5 px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Actions
                             </th>
                         </tr>
@@ -55,13 +60,20 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center">
+                                <td colspan="5"
+                                    class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center">
                                     No Orders in the system
                                 </td>
                             </tr>
                         @endforelse
                     </tbody>
                 </table>
+
+                @if ($orders->count())
+                    <div class="p-4">
+                        {{ $orders->links() }}
+                    </div>
+                @endif
 
             </div>
         </div>
