@@ -10,12 +10,9 @@
 
             {{-- IMAGE --}}
 
-            <div class="w-full lg:w-1/2">
-                {{-- <img src="{{ asset('assets/images/loginimg.png') }}" alt="{{ $product->title }}"
-                    class="w-full aspect-video object-cover rounded-xl shadow"> --}}
-
+            <div class="relative w-full aspect-video bg-slate-100 rounded-xl shadow">
                 <img src="{{ $product->image_url }}" alt="{{ $product->title }}"
-                    class="w-full aspect-video object-cover rounded-xl shadow">
+                    class="absolute inset-0 h-full w-full object-contain" />
             </div>
 
             {{-- DETAILS --}}
