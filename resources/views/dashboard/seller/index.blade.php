@@ -12,7 +12,7 @@
                 <table class="min-w-full divide-y divide-gray-200 w-full table-fixed">
                     <thead>
                         <tr>
-                            <th scope="col" width="50"
+                            <th scope="col"
                                 class="w-1/5 px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Title
                             </th>
@@ -37,7 +37,7 @@
                     <tbody class="bg-white divide-y divide-gray-200">
                         @forelse ($revenues as $revenue)
                             <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center break-words">
                                     {{ $revenue->product->title }}
                                     @if ($revenue->product->deleted_at)
                                         <span class="text-xs text-red-800">- Deleted</span>
