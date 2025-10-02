@@ -1,5 +1,5 @@
 <svg {{ $attributes->merge(['class' => 'w-5 h-5 text-white']) }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-    fill="currentColor" aria-hidden="true">
-    <path
-        d="M16 13v-2H7V8l-5 4 5 4v-3h9zm3-10H5c-1.1 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z" />
+    fill="none" aria-hidden="true">
+    <path d="M15 4H18C19.1046 4 20 4.89543 20 6V18C20 19.1046 19.1046 20 18 20H15M8 8L4 12M4 12L8 16M4 12L16 12"
+        stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
 </svg>

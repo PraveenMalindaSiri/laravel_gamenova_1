@@ -6,8 +6,6 @@
 
     <div class="container mx-auto p-4 border-y border-slate-400">
 
-        {{-- <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg> --}}
-
         <div class="flex flex-col gap-8 lg:flex-row">
 
             {{-- IMAGE --}}
@@ -89,13 +87,13 @@
                                     <input type="hidden" name="quantity" value="1">
                                 @endif
 
-                                <button type="submit" class="rounded-lg bg-slate-900 px-4 py-2 text-white hover:bg-slate-600">
+                                <button type="submit" class="rounded-lg bg-slate-900 px-4 py-2 text-white hover:bg-slate-600  transition duration-300">
                                     Add to Cart
                                 </button>
 
                                 {{-- action for Wishlist --}}
                                 <button type="submit" formaction="{{ route('wishlist.store') }}" formmethod="POST"
-                                    class="rounded-lg border border-slate-300 px-4 py-2 hover:text-blue-700">
+                                    class="rounded-lg border border-slate-300 px-4 py-2 hover:text-blue-700 font-semibold transition duration-300">
                                     Add to Wishlist
                                 </button>
                             </form>
@@ -106,7 +104,7 @@
                         <p class="text-red-700">
                             Please Log in as a customer to purchase this product.
                         </p>
-                        <a href="{{ route('login') }}" class="rounded-md py-1 px-2 text-white bg-slate-900 hover:bg-slate-600">
+                        <a href="{{ route('login') }}" class="rounded-md py-1 px-2 text-white bg-slate-900 hover:bg-slate-600 transition duration-300">
                             Log in
                         </a>
                     </div>
@@ -120,7 +118,7 @@
                                 features.
                             </p>
                             <a href="{{ route('profile.show') }}"
-                                class="bg-slate-900 py-1 px-2 text-white rounded-md hover:bg-slate-600">Update ›
+                                class="bg-slate-900 py-1 px-2 text-white rounded-md hover:bg-slate-600 transition duration-300">Update ›
                             </a>
                         </div>
                     @endif
@@ -131,10 +129,10 @@
                         <div>
                             @if (!$product->deleted_at)
                                 <a href="{{ route('myproducts.edit', $product) }}"
-                                    class="bg-slate-900 py-2 px-4 text-white rounded-md hover:bg-slate-600">Manage</a>
+                                    class="bg-slate-900 py-2 px-4 text-white rounded-md hover:bg-slate-600 transition duration-300">Manage</a>
                             @else
                                 <a href="{{ route('myproducts.index') }}"
-                                    class="bg-slate-900 py-2 px-4 text-white rounded-md hover:bg-slate-600">Manage</a>
+                                    class="bg-slate-900 py-2 px-4 text-white rounded-md hover:bg-slate-600 transition duration-300">Manage</a>
                             @endif
                         </div>
                     @endif

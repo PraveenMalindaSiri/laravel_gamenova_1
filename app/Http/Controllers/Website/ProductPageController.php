@@ -22,16 +22,9 @@ class ProductPageController extends Controller
     {
         $product = Product::withTrashed()->findOrFail($id);
 
-        $userReview = null;
-        if (Auth::check()) {
-            $userReview = Review::where('product_id', (string) $product->id)
-                ->where('user_id', (string) Auth::id())
-                ->first();
-        }
-
         $reviews = Review::where('product_id', (string) $product->id)
             ->orderBy('_id', 'desc')->limit(20)->get();
 
-        return view('website.details', ['product' => $product, 'reviews' => $reviews, 'userReview' => $userReview]);
+        return view('website.details', ['product' => $product, 'reviews' => $reviews]);
     }
 }

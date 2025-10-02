@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
+use App\Models\Review;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
@@ -33,8 +35,27 @@ class ProductsScreenController extends Controller
 
     public function show(String $id)
     {
-        $product = Product::withTrashed()->findOrFail($id);
+        try {
+            $product = Product::withTrashed()->findOrFail($id);
 
-        return ProductResource::make($product);
+            $reviews = Review::where('product_id', (string) $product->id)
+                ->orderBy('_id', 'desc')->limit(20)->get();
+
+            return response()->json(
+                [
+                    'data' => ProductResource::make($product),
+                    'reviews' => $reviews
+                ]
+            );
+        } catch (ModelNotFoundException $e) {
+            return response()->json([
+                'message' => 'Product not found.',
+            ], 404);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'message' => 'Something went wrong',
+                'error'   => $th->getMessage()
+            ], 500);
+        }
     }
 }

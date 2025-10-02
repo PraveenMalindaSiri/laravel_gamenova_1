@@ -7,19 +7,25 @@
                     {{-- web --}}
                     <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                         <div class="flex shrink-0 items-center">
-                            <a href="{{ route('home') }}" class="text-xl text-skyblue hover:text-white">GameNova</a>
+                            <a href="{{ route('home') }}"
+                                class="text-xl text-skyblue hover:text-white transition duration-300">GameNova</a>
                         </div>
                         <div class="hidden sm:ml-6 sm:block">
                             <div class="flex space-x-4">
-                                <a href="{{ route('home') }}" class="link-nav {{ request()->routeIs('home') ? 'bg-blue-900 text-white' : '' }}">Home</a>
-                                <a href="{{ route('product.index') }}" class="link-nav {{ request()->routeIs('product.*') ? 'bg-blue-900 text-white' : '' }}">Games</a>
+                                <a href="{{ route('home') }}"
+                                    class="link-nav {{ request()->routeIs('home') ? 'bg-blue-900 text-white' : '' }}">Home</a>
+                                <a href="{{ route('product.index') }}"
+                                    class="link-nav {{ request()->routeIs('product.*') ? 'bg-blue-900 text-white' : '' }}">Games</a>
                                 @auth
                                     @if (Auth::user()->isCustomer())
-                                        <a href="{{ route('wishlist.index') }}" class="link-nav {{ request()->routeIs('wishlist.*') ? 'bg-blue-900 text-white' : '' }}">Wishlist</a>
-                                        <a href="{{ route('cart.index') }}" class="link-nav {{ request()->routeIs('cart.*') ? 'bg-blue-900 text-white' : '' }}">Cart</a>
+                                        <a href="{{ route('wishlist.index') }}"
+                                            class="link-nav {{ request()->routeIs('wishlist.*') ? 'bg-blue-900 text-white' : '' }}">Wishlist</a>
+                                        <a href="{{ route('cart.index') }}"
+                                            class="link-nav {{ request()->routeIs('cart.*') ? 'bg-blue-900 text-white' : '' }}">Cart</a>
                                     @endif
                                 @endauth
-                                <a href="{{ route('about') }}" class="link-nav {{ request()->routeIs('about') ? 'bg-blue-900 text-white' : '' }}">About</a>
+                                <a href="{{ route('about') }}"
+                                    class="link-nav {{ request()->routeIs('about') ? 'bg-blue-900 text-white' : '' }}">About</a>
                             </div>
                         </div>
                     </div>
@@ -46,7 +52,8 @@
                                         @csrf
 
                                         <button type="submit" class="btn-nav group">
-                                            <x-logout class="hover:text-red-600 w-5 h-5"></x-logout>
+                                            <x-logout
+                                                class="w-5 h-5 text-white/70 hover:text-white transition duration-200" />
                                             <span class="sr-only">Log out</span>
                                         </button>
                                     </form>
