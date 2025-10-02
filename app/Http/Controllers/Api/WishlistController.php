@@ -21,6 +21,9 @@ class WishlistController extends Controller
     {
         $wishlist = Wishlist::with('product')
             ->where('user_id', Auth::user()->id)
+            ->whereHas('product', function ($q) {
+                $q->whereNull('deleted_at');
+            })
             ->get();
 
         return WishlistResource::collection($wishlist)->response()
